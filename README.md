@@ -1,4 +1,12 @@
-# SwipeTubeFe
+# SwipeTube Frontend
+
+## Description
+
+---
+
+Frontend client for SwipeTube application
+
+---
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.1.3.
 
