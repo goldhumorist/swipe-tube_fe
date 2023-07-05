@@ -16,7 +16,10 @@ export class UserService {
     return this.userApi.signup(data).pipe(
       map(res => {
         if (res.status === 0) {
-          const errorMessage = Object.entries(res.error.fields)[0][1];
+          const errorMessage = res.error.fields
+            ? Object.entries(res.error.fields)[0][1]
+            : res.error.message;
+
           throw new Error(errorMessage as string);
         }
         this.notifier.notify('success', 'Welcome ;3');
