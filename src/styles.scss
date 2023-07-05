@@ -1,1 +1,33 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'node_modules/angular-notifier/styles';
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700;800;900&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  @apply bg-bg-primary font-montserrat text-text-primary-black;
+}
+.text {
+  &__heading1 {
+    @apply text-h1-mobile md:text-h1 font-bold;
+  }
+  &__heading2 {
+    @apply text-h2-mobile md:text-h2 font-bold;
+  }
+  &__heading3 {
+    @apply text-h3-mobile md:text-h3 font-bold;
+  }
+  &__heading4 {
+    @apply text-h4-mobile md:text-h4 font-bold;
+  }
+  &__body {
+    @apply text-body-main-mobile md:text-body-main font-normal;
+  }
+  &__caption {
+    @apply text-body-caption-mobile md:text-body-caption font-normal;
+  }
+  &__small {
+    @apply text-body-small-mobile md:text-body-small font-normal;
+  }
+}

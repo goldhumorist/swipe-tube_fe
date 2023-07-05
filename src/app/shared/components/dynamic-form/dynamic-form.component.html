@@ -1,0 +1,25 @@
+<form [formGroup]="dynamicFormGroup">
+  <ng-container *ngFor="let field of fields">
+    <div>
+      <app-dynamic-field [field]="field"></app-dynamic-field>
+    </div>
+  </ng-container>
+  <ng-container *ngFor="let field of fields">
+    <app-dynamic-error
+      [fieldName]="field.fieldName!"
+      [isSubmitted]="isSubmitted"
+    ></app-dynamic-error>
+  </ng-container>
+  <ul class="error text__caption" *ngIf="!isPasswordsEqual() && isSignup">
+    <li class="error__field">repeat password</li>
+    <ul class="error__message-container">
+      <li class="error__message">your passwords are not equal</li>
+    </ul>
+  </ul>
+  <app-button
+    [type]="'submit'"
+    [text]="formBtnText"
+    [isDisabled]="isBtnDisabled()"
+    (btnClick)="emitSubmit()"
+  ></app-button>
+</form>

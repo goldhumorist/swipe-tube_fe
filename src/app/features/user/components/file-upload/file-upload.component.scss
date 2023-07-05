@@ -1,0 +1,17 @@
+.file {
+  &__input {
+    display: none;
+  }
+  &__upload-circle {
+    @apply w-[80px] h-[80px] bg-gradient-primary rounded-full cursor-pointer;
+  }
+  &__upload-area {
+    @apply border-2 border-dashed border-text-primary-black h-[50px];
+  }
+  &__side-container {
+    @apply pl-4;
+  }
+  &__container {
+    @apply flex mb-4;
+  }
+}
