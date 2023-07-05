@@ -1,7 +1,7 @@
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { FeaturesModule } from 'src/app/features';
-import { DumpUser, UserModule, UserService } from 'src/app/features/user';
+import { DumpUserService, UserService } from 'src/app/features/user';
 import { SignupComponent } from './signup.component';
 import { SignupRouting } from './signup.routing';
 import { FormsService } from 'src/app/core/services';
@@ -14,12 +14,11 @@ import { UserApi } from 'src/app/features/user/api/user.api';
   declarations: [SignupComponent],
   imports: [
     FeaturesModule,
-    UserModule,
     ReactiveFormsModule,
     UiModule,
     SignupRouting,
     SharedModule,
   ],
-  providers: [FormsService, DumpUser, HttpClient, UserService, UserApi],
+  providers: [FormsService, DumpUserService, HttpClient, UserService, UserApi],
 })
 export class SignupModule {}

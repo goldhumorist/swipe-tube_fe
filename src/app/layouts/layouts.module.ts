@@ -1,10 +1,11 @@
 import { NgModule } from '@angular/core';
-import { MainComponent } from './main';
+import { UserLayoutComponent } from './user';
 import { RouterModule } from '@angular/router';
+import { MainLayoutComponent } from './main/main-layout.component';
 
 @NgModule({
-  declarations: [MainComponent],
+  declarations: [UserLayoutComponent, MainLayoutComponent],
   imports: [RouterModule],
-  exports: [MainComponent],
+  exports: [UserLayoutComponent],
 })
 export class LayoutsModule {}

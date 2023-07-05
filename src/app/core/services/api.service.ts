@@ -13,14 +13,13 @@ interface HttpClientGetOptions {
     | HttpHeaders
     | {
         [header: string]: string | string[];
-      }
-    | undefined;
-  context?: HttpContext | undefined;
-  observe?: 'body' | undefined;
+      };
+  context?: HttpContext;
+  observe?: 'body';
   params?: HttpParams;
-  reportProgress?: boolean | undefined;
-  responseType?: 'json' | undefined;
-  withCredentials?: boolean | undefined;
+  reportProgress?: boolean;
+  responseType?: 'json';
+  withCredentials?: boolean;
 }
 
 @Injectable({

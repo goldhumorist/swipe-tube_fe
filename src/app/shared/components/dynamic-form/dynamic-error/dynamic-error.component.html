@@ -8,10 +8,10 @@
   class="alert"
 >
   <ng-container *ngIf="formName.controls[fieldName].errors">
-    <ul>
-      <li>{{ fieldName }}</li>
-      <ul>
-        <li *ngFor="let message of generateMessage()">
+    <ul class="error text__caption">
+      <li class="error__field">{{ fieldName }}:</li>
+      <ul class="error__message-container">
+        <li class="error__message" *ngFor="let message of generateMessage()">
           {{ message }}
         </li>
       </ul>

@@ -17,14 +17,17 @@ import { IDynamicFormGroup, IField } from '../../interfaces';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicFormComponent implements OnInit {
-  @Input() model: IDynamicFormGroup<unknown>;
-  @Output() submitEmmiter: EventEmitter<FormGroup> =
-    new EventEmitter<FormGroup>();
-
   public isSubmitted = false;
   public isSignup = false;
   public dynamicFormGroup: FormGroup;
   public fields: Array<IField<unknown>> = [];
+
+  @Input() formBtnText: string;
+
+  @Input() model: IDynamicFormGroup<unknown>;
+
+  @Output() submitEmmiter: EventEmitter<FormGroup> =
+    new EventEmitter<FormGroup>();
 
   constructor(private formsService: FormsService) {}
 

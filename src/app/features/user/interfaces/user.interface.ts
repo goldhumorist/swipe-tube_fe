@@ -6,7 +6,23 @@ export interface IUser {
 }
 
 export interface ISignupResponse {
-  username: string;
+  data: {
+    username: string;
+    email: string;
+    avatarUrlPath?: string | null;
+  };
+  status: number;
+}
+
+export interface ISignupResError {
+  status: number;
+  error: IError;
+}
+interface IErrorFields {
   email: string;
-  avatarUrlPath?: string | null;
+}
+interface IError {
+  code: string;
+  message: string;
+  fields: IErrorFields;
 }

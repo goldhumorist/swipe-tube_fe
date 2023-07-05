@@ -10,16 +10,16 @@
       [isSubmitted]="isSubmitted"
     ></app-dynamic-error>
   </ng-container>
-  <ul *ngIf="!isPasswordsEqual() && isSignup">
-    <li>Repeat password</li>
-    <ul>
-      <li>your passwords are not equal</li>
+  <ul class="error text__caption" *ngIf="!isPasswordsEqual() && isSignup">
+    <li class="error__field">repeat password</li>
+    <ul class="error__message-container">
+      <li class="error__message">your passwords are not equal</li>
     </ul>
   </ul>
-  <app-action-button
+  <app-button
     [type]="'submit'"
-    [text]="'Submit'"
+    [text]="formBtnText"
     [isDisabled]="isBtnDisabled()"
     (btnClick)="emitSubmit()"
-  ></app-action-button>
+  ></app-button>
 </form>

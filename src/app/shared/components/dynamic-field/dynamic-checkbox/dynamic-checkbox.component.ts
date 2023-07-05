@@ -8,6 +8,7 @@ import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicCheckboxComponent {
-  @Input() field: any;
   formName: FormGroup;
+
+  @Input() field: any;
 }

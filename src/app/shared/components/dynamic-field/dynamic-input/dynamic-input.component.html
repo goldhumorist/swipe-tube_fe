@@ -1,6 +1,10 @@
-<form [formGroup]="formName">
-  <label
-    >{{ field.label }}
-    <input [type]="field.type" [formControlName]="field.fieldName" />
+<form class="form text__body" [formGroup]="formName">
+  <label class="form__label"
+    >{{ field.label }}:<br />
+    <input
+      class="form__input"
+      [type]="field.type"
+      [formControlName]="field.fieldName"
+    />
   </label>
 </form>

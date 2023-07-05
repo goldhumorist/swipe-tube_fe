@@ -8,10 +8,12 @@ import { FormsService } from 'src/app/core/services';
 })
 export class FileUploadComponent {
   fileName = '';
+  isFileTypeValid: boolean;
+
   @Input() fileType: string;
+
   @Output() formDataEmitter: EventEmitter<FormData> =
     new EventEmitter<FormData>();
-  isFileTypeValid: boolean;
 
   constructor(private formsService: FormsService) {}
 

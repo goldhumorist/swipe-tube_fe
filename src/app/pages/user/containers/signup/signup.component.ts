@@ -1,8 +1,8 @@
-import { UserService } from './../../features/user/service/user.service';
+import { UserService } from '../../../../features/user/service/user.service';
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
-import { DumpUser } from 'src/app/features/user';
+import { DumpUserService } from 'src/app/features/user';
 import { IDynamicFormGroup } from 'src/app/shared';
 
 @Component({
@@ -51,7 +51,7 @@ export class SignupComponent implements OnDestroy {
   destroy$: Subject<boolean> = new Subject<boolean>();
 
   constructor(
-    private readonly dumpUser: DumpUser,
+    private readonly dumpUserService: DumpUserService,
     private readonly userService: UserService,
   ) {}
 
@@ -65,7 +65,7 @@ export class SignupComponent implements OnDestroy {
   }
 
   onSubmit(formGroup: FormGroup): void {
-    const dumpedUser = this.dumpUser.dumbSignupUser(formGroup.value);
+    const dumpedUser = this.dumpUserService.dumbSignupUser(formGroup.value);
 
     for (const [key, val] of Object.entries(dumpedUser)) {
       this.userFormData.append(key, val);
@@ -75,7 +75,11 @@ export class SignupComponent implements OnDestroy {
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: () => {
-          // TODO:relocate to login
+          this.userFormData = new FormData();
+          // TODO:relocate to main page(video)
+        },
+        complete: () => {
+          this.userFormData = new FormData();
         },
       });
   }

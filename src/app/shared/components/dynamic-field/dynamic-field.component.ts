@@ -16,12 +16,7 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./dynamic-field.component.scss'],
 })
 export class DynamicFieldComponent implements AfterViewInit {
-  @ViewChild('dynamicInputContainer', { read: ViewContainerRef })
-  dynamicInputContainer!: ViewContainerRef;
-  @Input() field: any;
   formName: FormGroup;
-
-  constructor(private cd: ChangeDetectorRef) {}
 
   supportedDynamicComponents = [
     {
@@ -41,6 +36,13 @@ export class DynamicFieldComponent implements AfterViewInit {
       component: DynamicCheckboxComponent,
     },
   ];
+
+  @Input() field: any;
+
+  @ViewChild('dynamicInputContainer', { read: ViewContainerRef })
+  dynamicInputContainer!: ViewContainerRef;
+
+  constructor(private cd: ChangeDetectorRef) {}
 
   ngAfterViewInit(): void {
     this.registerDynamicField();

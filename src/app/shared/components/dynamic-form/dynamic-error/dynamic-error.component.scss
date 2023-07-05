@@ -1,0 +1,8 @@
+.error {
+  @apply text-danger-primary text-start mb-4;
+  &__field {
+  }
+  &__message-container {
+    @apply list-disc ps-8;
+  }
+}

@@ -1,0 +1,9 @@
+.btn {
+  @apply p-2 justify-self-end bg-gradient-primary rounded-lg shadow-md disabled:opacity-40;
+  &__text {
+    @apply text-text-primary-white;
+  }
+  &__container {
+    @apply flex justify-end;
+  }
+}

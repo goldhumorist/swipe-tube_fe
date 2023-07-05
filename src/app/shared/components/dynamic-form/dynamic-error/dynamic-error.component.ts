@@ -16,6 +16,7 @@ export class DynamicErrorComponent implements OnInit {
 
   @Input()
   isSubmitted: boolean;
+
   @Input() fieldName: string;
 
   constructor(private formgroupDirective: FormGroupDirective) {}

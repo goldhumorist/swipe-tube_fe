@@ -1,3 +1,5 @@
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 <input
   type="file"
   class="file__input"
@@ -5,7 +7,10 @@
   #fileUpload
 />
 
-<div class="file__upload">
-  {{ fileName || 'No file uploaded yet.' }}
-  <button class="upload-btn" (click)="fileUpload.click()">Click</button>
+<div class="file__container">
+  <div class="file__upload-circle" (click)="fileUpload.click()"></div>
+  <div class="file__side-container">
+    <p class="text__body">{{ fileName || 'Choose your avatar' }}</p>
+    <div class="file__upload-area"></div>
+  </div>
 </div>

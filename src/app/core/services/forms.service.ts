@@ -1,25 +1,28 @@
 import { Injectable } from '@angular/core';
 import { FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { IDynamicFormGroup, IField } from 'src/app/shared';
+import { IDynamicField } from '../interfaces';
 
 @Injectable()
 export class FormsService {
   getFormGroupFields<T extends object>(
     fields: Array<IField<unknown>>,
     model: IDynamicFormGroup<unknown>,
-  ): { [key in keyof T]: FormControl } {
-    const formGroupFields: { [key in keyof T]: FormControl } = {} as {
-      [key in keyof T]: FormControl;
-    };
+  ): IDynamicField<T> {
+    const formGroupFields: IDynamicField<T> = {} as IDynamicField<T>;
+
     for (const field of Object.keys(model)) {
       const fieldProps: IField<unknown> = model[field];
+
       const validators: ValidatorFn[] = this.addValidator(
         fieldProps.rules,
       ) as ValidatorFn[];
+
       formGroupFields[field as keyof T] = new FormControl(
         fieldProps.value,
         validators,
       );
+
       //metadata fields for dynamic form fields component
       fields.push({ ...fieldProps, fieldName: field });
     }

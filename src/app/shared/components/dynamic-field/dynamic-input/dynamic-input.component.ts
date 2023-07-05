@@ -13,9 +13,12 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicInputComponent implements OnInit {
-  constructor(private formgroupDirective: FormGroupDirective) {}
-  @Input() field: any;
   formName: FormGroup;
+
+  @Input() field: any;
+
+  constructor(private formgroupDirective: FormGroupDirective) {}
+
   ngOnInit(): void {
     this.formName = this.formgroupDirective.control;
   }

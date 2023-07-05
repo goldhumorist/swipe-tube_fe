@@ -1,0 +1,9 @@
+.form {
+  @apply mb-5 text-start;
+  &__label {
+  }
+  &__input {
+    @apply w-[100%] h-[40px] px-[12px] outline-none
+     shadow-md rounded-lg;
+  }
+}

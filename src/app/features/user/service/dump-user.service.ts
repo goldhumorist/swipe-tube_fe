@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { IUser } from '../interfaces';
 
 @Injectable()
-export class DumpUser {
+export class DumpUserService {
   dumbSignupUser(user: IUser) {
     return {
       email: user.email,

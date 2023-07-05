@@ -6,11 +6,13 @@ import { AppComponent } from './app.component';
 import { StoreModule } from '@ngrx/store';
 import { LayoutsModule } from './layouts';
 import { HttpClientModule } from '@angular/common/http';
+import { NotifierModule } from 'angular-notifier';
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    NotifierModule,
     AppRoutingModule,
     HttpClientModule,
     LayoutsModule,

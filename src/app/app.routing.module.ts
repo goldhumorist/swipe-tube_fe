@@ -1,20 +1,20 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AppRouteEnum } from './core/enums/app-route.enum';
-import { MainComponent } from './layouts';
+import { MainLayoutComponent } from './layouts';
 
 const routes: Routes = [
   {
     path: '',
-    component: MainComponent,
+    component: MainLayoutComponent,
     children: [
       {
-        path: AppRouteEnum.Signup,
-        loadChildren: () => import('./pages/signup').then(m => m.SignupModule),
+        path: AppRouteEnum.User,
+        loadChildren: () => import('./pages/user').then(m => m.UserModule),
       },
       {
         path: '**',
-        redirectTo: AppRouteEnum.Signup,
+        redirectTo: AppRouteEnum.User,
       },
     ],
   },
