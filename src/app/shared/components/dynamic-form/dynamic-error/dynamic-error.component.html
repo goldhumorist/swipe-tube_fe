@@ -1,0 +1,20 @@
+<ng-container
+  *ngIf="
+    isSubmitted ||
+    (formName.controls[fieldName].invalid &&
+      (formName.controls[fieldName].dirty ||
+        formName.controls[fieldName].touched))
+  "
+  class="alert"
+>
+  <ng-container *ngIf="formName.controls[fieldName].errors">
+    <ul>
+      <li>{{ fieldName }}</li>
+      <ul>
+        <li *ngFor="let message of generateMessage()">
+          {{ message }}
+        </li>
+      </ul>
+    </ul>
+  </ng-container>
+</ng-container>
