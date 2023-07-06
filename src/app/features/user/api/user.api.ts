@@ -1,20 +1,24 @@
 import { UserApiPath } from '../';
 import { Injectable } from '@angular/core';
 import { ApiService } from 'src/app/core';
-import { ISignupResError, ISignupResponse } from '../interfaces';
+import { ISignupResponse, ILoginResponse, ILoginData } from '../interfaces';
 import { Observable } from 'rxjs';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class UserApi {
   constructor(private apiService: ApiService) {}
   private basePath = UserApiPath.basicUserPath;
 
-  public signup(
-    data: FormData,
-  ): Observable<ISignupResponse | ISignupResError | any> {
-    return this.apiService.post<ISignupResponse | ISignupResError | any>(
+  public signup(data: FormData): Observable<ISignupResponse> {
+    return this.apiService.post<ISignupResponse>(
       `${this.basePath}/signup`,
       data,
     );
+  }
+
+  public login(data: ILoginData): Observable<ILoginResponse> {
+    return this.apiService.post<ILoginResponse>(`${this.basePath}/login`, data);
   }
 }

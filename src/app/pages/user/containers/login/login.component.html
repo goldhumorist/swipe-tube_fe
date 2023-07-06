@@ -1,0 +1,13 @@
+<app-user-form title="Login">
+  <app-dynamic-form
+    [model]="model"
+    formBtnText="Login"
+    (submitEmmiter)="onSubmit($event)"
+  ></app-dynamic-form>
+</app-user-form>
+
+<app-navigation-link
+  text="Do not have an account yet?"
+  linkText="Create it !"
+  [navigateTo]="signupPageLink"
+></app-navigation-link>

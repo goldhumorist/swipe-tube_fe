@@ -1,3 +1,4 @@
+import { httpInterceptorProviders } from './core/http-interceptors';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -19,5 +20,6 @@ import { NotifierModule } from 'angular-notifier';
     StoreModule.forRoot({}, {}),
   ],
   bootstrap: [AppComponent],
+  providers: httpInterceptorProviders,
 })
 export class AppModule {}

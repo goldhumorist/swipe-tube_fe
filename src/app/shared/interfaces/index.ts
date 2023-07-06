@@ -1,1 +1,1 @@
-export * from './forms/form-group.interface';
+export * from './interfaces';
