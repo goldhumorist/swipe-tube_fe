@@ -3,7 +3,9 @@ import { FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { IDynamicFormGroup, IField } from 'src/app/shared';
 import { IDynamicField } from '../interfaces';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class FormsService {
   getFormGroupFields<T extends object>(
     fields: Array<IField<unknown>>,
@@ -54,14 +56,7 @@ export class FormsService {
         //add more case for future.
       }
     });
-    return validators;
-  }
-  public requiredFileType(file: File, type: string) {
-    if (file && type) {
-      const extension = file.name.split('.')[1].toLowerCase();
-      return type.toLowerCase() === extension.toLowerCase();
-    }
 
-    return null;
+    return validators;
   }
 }

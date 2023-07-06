@@ -1,9 +1,13 @@
-import { UserService } from '../../../../features/user/service/user.service';
+import { IUser } from './../../../../features/user/';
+import { IDynamicFormGroup } from './../../../../shared/interfaces';
+import {
+  AppRouteEnum,
+  UserRouteEnum,
+} from './../../../../core/enums/app-route.enum';
+import { UserService } from '../../../../features/user/';
 import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Subject, takeUntil } from 'rxjs';
-import { DumpUserService } from 'src/app/features/user';
-import { IDynamicFormGroup } from 'src/app/shared';
 
 @Component({
   selector: 'app-signup-form',
@@ -46,14 +50,14 @@ export class SignupComponent implements OnDestroy {
       label: 'Repeat password',
     },
   };
+
   userFormData: FormData = new FormData();
 
   destroy$: Subject<boolean> = new Subject<boolean>();
 
-  constructor(
-    private readonly dumpUserService: DumpUserService,
-    private readonly userService: UserService,
-  ) {}
+  loginPageLink = `/${AppRouteEnum.User}/${UserRouteEnum.Login}`;
+
+  constructor(private readonly userService: UserService) {}
 
   onAvatarUpload(avatarFormData: FormData): void {
     for (const key of avatarFormData.keys()) {
@@ -65,11 +69,12 @@ export class SignupComponent implements OnDestroy {
   }
 
   onSubmit(formGroup: FormGroup): void {
-    const dumpedUser = this.dumpUserService.dumbSignupUser(formGroup.value);
+    const dumpedUser = this.dumbSignupUser(formGroup.value);
 
     for (const [key, val] of Object.entries(dumpedUser)) {
       this.userFormData.append(key, val);
     }
+
     this.userService
       .signup(this.userFormData)
       .pipe(takeUntil(this.destroy$))
@@ -83,8 +88,17 @@ export class SignupComponent implements OnDestroy {
         },
       });
   }
+
   ngOnDestroy(): void {
     this.destroy$.next(true);
     this.destroy$.unsubscribe();
+  }
+
+  private dumbSignupUser(user: IUser) {
+    return {
+      email: user.email,
+      username: user.username,
+      password: user.password,
+    };
   }
 }

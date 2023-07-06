@@ -10,8 +10,16 @@ import { NotifierService } from 'angular-notifier';
 export class UserService {
   constructor(private userApi: UserApi, private notifier: NotifierService) {}
 
-  constructor(private userApi: UserApi, notifierService: NotifierService) {
-    this.notifier = notifierService;
+  signup(data: FormData): Observable<ISignupResponse> {
+    return this.userApi.signup(data).pipe(
+      tap(() => {
+        this.notifier.notify('success', 'Welcome ;3');
+      }),
+      catchError(error => {
+        this.notifier.notify('error', error.message);
+        return EMPTY;
+      }),
+    );
   }
 
   login(data: ILoginData): Observable<ILoginResponse> {

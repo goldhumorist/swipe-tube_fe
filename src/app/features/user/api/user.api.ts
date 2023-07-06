@@ -11,10 +11,8 @@ export class UserApi {
   constructor(private apiService: ApiService) {}
   private basePath = UserApiPath.basicUserPath;
 
-  public signup(
-    data: FormData,
-  ): Observable<ISignupResponse | ISignupResError | any> {
-    return this.apiService.post<ISignupResponse | ISignupResError | any>(
+  public signup(data: FormData): Observable<ISignupResponse> {
+    return this.apiService.post<ISignupResponse>(
       `${this.basePath}/signup`,
       data,
     );

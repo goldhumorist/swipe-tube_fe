@@ -1,5 +1,5 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { FormsService } from 'src/app/core/services';
+import { Component, EventEmitter, Output } from '@angular/core';
+import { ALLOWED_FILE_TYPES } from '../../enums';
 
 @Component({
   selector: 'app-file-upload',
@@ -10,17 +10,14 @@ export class FileUploadComponent {
   fileName = '';
   isFileTypeValid: boolean;
 
-  @Input() fileType: string;
-
   @Output() formDataEmitter: EventEmitter<FormData> =
     new EventEmitter<FormData>();
 
-  constructor(private formsService: FormsService) {}
+  onFileSelected(event: Event) {
+    const inputElement = event.target as HTMLInputElement;
+    const file: File = inputElement.files?.[0] as File;
 
-  onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-
-    if (this.formsService.requiredFileType(file, this.fileType)) {
+    if (file && this.isCorrectFileType(file)) {
       this.fileName = file.name;
       const formData = new FormData();
 
@@ -28,5 +25,11 @@ export class FileUploadComponent {
 
       this.formDataEmitter.emit(formData);
     }
+  }
+
+  private isCorrectFileType(file: File) {
+    const extension = file.name.split('.')[1].toLowerCase();
+
+    return !!ALLOWED_FILE_TYPES.includes(extension.toLowerCase());
   }
 }
