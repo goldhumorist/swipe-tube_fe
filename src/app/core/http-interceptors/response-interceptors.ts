@@ -9,7 +9,7 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError, filter, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Exeption } from '../exeptions/exeption';
+import { Exception } from '../exeptions/exception';
 import {
   IServerErrorResponse,
   IServerSuccessResponse,
@@ -33,14 +33,14 @@ export class ResponseInterceptor implements HttpInterceptor {
         if (event.body?.status === 0) {
           const errorMessage = this.parseErrorResponse(event);
 
-          throw new Exeption(errorMessage);
+          throw new Exception(errorMessage);
         }
 
         return this.parseSuccessResponse(event);
       }),
       catchError(error => {
         console.log('Caught error:', error);
-        if (error instanceof Exeption) return throwError(() => error);
+        if (error instanceof Exception) return throwError(() => error);
 
         return throwError(() => new Error('Server Error'));
       }),

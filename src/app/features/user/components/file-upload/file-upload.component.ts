@@ -30,6 +30,6 @@ export class FileUploadComponent {
   private isCorrectFileType(file: File) {
     const extension = file.name.split('.')[1].toLowerCase();
 
-    return !!ALLOWED_FILE_TYPES.includes(extension.toLowerCase());
+    return ALLOWED_FILE_TYPES.includes(extension.toLowerCase());
   }
 }

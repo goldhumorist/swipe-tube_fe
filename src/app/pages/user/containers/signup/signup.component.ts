@@ -69,7 +69,7 @@ export class SignupComponent implements OnDestroy {
   }
 
   onSubmit(formGroup: FormGroup): void {
-    const dumpedUser = this.dumbSignupUser(formGroup.value);
+    const dumpedUser = this.dumpSignupUser(formGroup.value);
 
     for (const [key, val] of Object.entries(dumpedUser)) {
       this.userFormData.append(key, val);
@@ -94,7 +94,7 @@ export class SignupComponent implements OnDestroy {
     this.destroy$.unsubscribe();
   }
 
-  private dumbSignupUser(user: IUser) {
+  private dumpSignupUser(user: IUser) {
     return {
       email: user.email,
       username: user.username,
