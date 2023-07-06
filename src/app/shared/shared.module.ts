@@ -1,14 +1,14 @@
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsService } from '../core/services';
-import { DynamicErrorComponent, DynamicFormComponent } from './components';
 import {
-  DynamicCheckboxComponent,
+  DynamicErrorComponent,
+  DynamicFormComponent,
   DynamicInputComponent,
-} from './components/dynamic-field';
-import { DynamicFieldComponent } from './components/dynamic-field/dynamic-field.component';
-import { UiModule } from '../core';
+  DynamicCheckboxComponent,
+  DynamicFieldComponent,
+} from './components';
+import { UiModule } from './ui';
 
 @NgModule({
   declarations: [
@@ -19,7 +19,6 @@ import { UiModule } from '../core';
     DynamicFieldComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, UiModule],
-  exports: [DynamicFormComponent],
-  providers: [FormsService],
+  exports: [DynamicFormComponent, UiModule],
 })
 export class SharedModule {}

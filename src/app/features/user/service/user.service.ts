@@ -1,34 +1,26 @@
 import { Injectable } from '@angular/core';
-import { ISignupResError, ISignupResponse } from '../interfaces';
+import { ILoginData, ILoginResponse, ISignupResponse } from '../interfaces';
 import { UserApi } from '../api/user.api';
-import { EMPTY, Observable, catchError, map } from 'rxjs';
+import { EMPTY, Observable, catchError, tap } from 'rxjs';
 import { NotifierService } from 'angular-notifier';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root',
+})
 export class UserService {
-  private readonly notifier: NotifierService;
+  constructor(private userApi: UserApi, private notifier: NotifierService) {}
 
   constructor(private userApi: UserApi, notifierService: NotifierService) {
     this.notifier = notifierService;
   }
 
-  signup(data: FormData): Observable<ISignupResponse | ISignupResError | any> {
-    return this.userApi.signup(data).pipe(
-      map(res => {
-        if (res.status === 0) {
-          const errorMessage = res.error.fields
-            ? Object.entries(res.error.fields)[0][1]
-            : res.error.message;
-
-          throw new Error(errorMessage as string);
-        }
+  login(data: ILoginData): Observable<ILoginResponse> {
+    return this.userApi.login(data).pipe(
+      tap(() => {
         this.notifier.notify('success', 'Welcome ;3');
-        return res;
       }),
       catchError(error => {
-        console.log('Caught error:', error);
-        this.notifier.notify('error', error);
-
+        this.notifier.notify('error', error.message);
         return EMPTY;
       }),
     );

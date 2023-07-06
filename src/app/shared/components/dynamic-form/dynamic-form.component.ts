@@ -34,19 +34,22 @@ export class DynamicFormComponent implements OnInit {
   ngOnInit(): void {
     this.buildForm();
   }
+
   // send further to use inside components
   emitSubmit(): void {
     if (this.isFormValid()) {
       this.submitEmmiter.emit(this.dynamicFormGroup);
-      return this.dynamicFormGroup.reset();
+
+      // return this.dynamicFormGroup.reset();
     }
     this.isSubmitted = true;
   }
 
   isFormValid(): boolean {
-    return this.dynamicFormGroup.status === 'VALID' && this.isPasswordsEqual()
-      ? true
-      : false;
+    return (
+      this.dynamicFormGroup.status === 'VALID' &&
+      (this.isSignup ? this.isPasswordsEqual() : true)
+    );
   }
 
   isBtnDisabled(): boolean {
@@ -55,8 +58,8 @@ export class DynamicFormComponent implements OnInit {
 
   isPasswordsEqual(): boolean {
     return (
-      this.dynamicFormGroup.controls['repeatPassword'].value ===
-      this.dynamicFormGroup.controls['password'].value
+      this.dynamicFormGroup.controls['repeatPassword']?.value ===
+      this.dynamicFormGroup.controls['password']?.value
     );
   }
 

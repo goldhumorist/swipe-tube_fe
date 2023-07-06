@@ -14,6 +14,11 @@ const routes: Routes = [
           import('./containers/signup').then(m => m.SignupModule),
       },
       {
+        path: UserRouteEnum.Login,
+        loadChildren: () =>
+          import('./containers/login').then(m => m.LoginModule),
+      },
+      {
         path: '**',
         redirectTo: UserRouteEnum.Signup,
       },

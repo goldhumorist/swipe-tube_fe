@@ -1,1 +1,1 @@
-export * from './dynamic-field.interface';
+export * from './interfaces';
