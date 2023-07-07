@@ -13,8 +13,13 @@ const routes: Routes = [
         loadChildren: () => import('./pages/user').then(m => m.UserModule),
       },
       {
+        path: AppRouteEnum.Video,
+        loadChildren: () => import('./pages/video').then(m => m.VideoModule),
+      },
+      {
         path: '**',
         redirectTo: AppRouteEnum.User,
+        pathMatch: 'full',
       },
     ],
   },

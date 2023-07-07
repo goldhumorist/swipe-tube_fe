@@ -5,9 +5,8 @@ import {
   UserRouteEnum,
 } from './../../../../core/enums/app-route.enum';
 import { UserService } from '../../../../features/user/';
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { FormGroup } from '@angular/forms';
-import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-signup-form',
@@ -15,7 +14,7 @@ import { Subject, takeUntil } from 'rxjs';
   styleUrls: ['./signup.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SignupComponent implements OnDestroy {
+export class SignupComponent {
   model: IDynamicFormGroup<unknown> = {
     email: {
       type: 'text',
@@ -51,13 +50,13 @@ export class SignupComponent implements OnDestroy {
     },
   };
 
+  constructor(private readonly userService: UserService) {}
+
+  isLoading$ = this.userService.isLoading$;
+
   userFormData: FormData = new FormData();
 
-  destroy$: Subject<boolean> = new Subject<boolean>();
-
   loginPageLink = `/${AppRouteEnum.User}/${UserRouteEnum.Login}`;
-
-  constructor(private readonly userService: UserService) {}
 
   onAvatarUpload(avatarFormData: FormData): void {
     for (const key of avatarFormData.keys()) {
@@ -75,23 +74,9 @@ export class SignupComponent implements OnDestroy {
       this.userFormData.append(key, val);
     }
 
-    this.userService
-      .signup(this.userFormData)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: () => {
-          this.userFormData = new FormData();
-          // TODO:relocate to main page(video)
-        },
-        complete: () => {
-          this.userFormData = new FormData();
-        },
-      });
-  }
+    this.userService.signup({ data: this.userFormData });
 
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
+    this.userFormData = new FormData();
   }
 
   private dumpSignupUser(user: IUser) {

@@ -11,3 +11,9 @@
   linkText="Create it !"
   [navigateTo]="signupPageLink"
 ></app-navigation-link>
+
+<ng-container *ngIf="isLoading$ | async">
+  <app-loading-overlay>
+    <app-loader></app-loader>
+  </app-loading-overlay>
+</ng-container>

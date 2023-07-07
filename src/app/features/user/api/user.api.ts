@@ -1,7 +1,12 @@
 import { UserApiPath } from '../';
 import { Injectable } from '@angular/core';
 import { ApiService } from 'src/app/core';
-import { ISignupResponse, ILoginResponse, ILoginData } from '../interfaces';
+import {
+  ISignupResponse,
+  ILoginResponseData,
+  ILoginRequestData,
+  ISignupRequestData,
+} from '../interfaces';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -11,14 +16,17 @@ export class UserApi {
   constructor(private apiService: ApiService) {}
   private basePath = UserApiPath.basicUserPath;
 
-  public signup(data: FormData): Observable<ISignupResponse> {
+  public signup(data: ISignupRequestData): Observable<ISignupResponse> {
     return this.apiService.post<ISignupResponse>(
       `${this.basePath}/signup`,
       data,
     );
   }
 
-  public login(data: ILoginData): Observable<ILoginResponse> {
-    return this.apiService.post<ILoginResponse>(`${this.basePath}/login`, data);
+  public login(data: ILoginRequestData): Observable<ILoginResponseData> {
+    return this.apiService.post<ILoginResponseData>(
+      `${this.basePath}/login`,
+      data,
+    );
   }
 }

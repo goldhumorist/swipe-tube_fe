@@ -5,4 +5,5 @@ export enum UserRouteEnum {
 
 export enum AppRouteEnum {
   User = 'user',
+  Video = 'video',
 }

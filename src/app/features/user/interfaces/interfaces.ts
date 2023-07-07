@@ -5,29 +5,34 @@ export interface IUser {
   readonly repeatPassword: string;
 }
 
+export interface ISignupData {
+  data: FormData;
+}
+
+export type ISignupRequestData = FormData;
+
 export interface ISignupResponse {
   username: string;
   email: string;
-  avatarUrlPath?: string | null;
+  avatarUrlPath?: string;
+  accessToken: string;
 }
 
-export interface IError {
-  code: string;
-  message: string;
-  fields: IErrorFields;
-}
-
-interface IErrorFields {
-  email: string;
-}
-
-export interface ILoginResponse {
+export interface ILoginResponseData {
   username: string;
   email: string;
-  avatarUrlPath?: string | null;
+  avatarUrlPath?: string;
+  accessToken: string;
 }
 
 export interface ILoginData {
+  data: {
+    email: string;
+    password: string;
+  };
+}
+
+export interface ILoginRequestData {
   email: string;
   password: string;
 }
