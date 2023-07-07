@@ -50,11 +50,16 @@ export class ResponseInterceptor implements HttpInterceptor {
   private parseErrorResponse(
     response: HttpResponse<IServerErrorResponse>,
   ): string {
-    const errorMessage = response.body?.error?.fields
-      ? Object.entries(response.body?.error?.fields)[0][1]
-      : response.body?.error?.message;
+    if (response.body?.error?.fields) {
+      const fieldName = Object.entries(response.body?.error?.fields)[0][0];
+      const status = Object.entries(response.body?.error?.fields)[0][1];
 
-    return errorMessage as string;
+      const errorMessage = `${fieldName} - ${status}`;
+
+      return errorMessage;
+    }
+
+    return response.body?.error?.message || 'Server Error';
   }
 
   private parseSuccessResponse(response: HttpResponse<IServerSuccessResponse>) {
