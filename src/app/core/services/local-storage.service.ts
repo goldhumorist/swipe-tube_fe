@@ -4,15 +4,17 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class LocalStorageService {
-  getAuthToken(): string | null {
-    return localStorage.getItem('auth_token');
+  accessTokenKey = 'access_token';
+
+  getAccessToken(): string | null {
+    return localStorage.getItem(this.accessTokenKey);
   }
 
-  setAuthToken(authToken: string) {
-    localStorage.setItem('auth_token', authToken);
+  setAccessToken(authToken: string) {
+    localStorage.setItem(this.accessTokenKey, authToken);
   }
 
-  removeAuthToken(): void {
-    localStorage.removeItem('auth_token');
+  removeAccessToken(): void {
+    localStorage.removeItem(this.accessTokenKey);
   }
 }

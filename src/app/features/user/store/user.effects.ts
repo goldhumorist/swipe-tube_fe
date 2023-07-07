@@ -56,7 +56,7 @@ export class UserEffects {
   ): void {
     this.notifier.showSuccessNotification('Welcome ;3');
 
-    this.localStorage.setAuthToken(responseData.accessToken);
+    this.localStorage.setAccessToken(responseData.accessToken);
 
     this.router.navigate([AppRouteEnum.Video]);
   }
