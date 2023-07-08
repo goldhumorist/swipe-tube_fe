@@ -5,6 +5,7 @@ import {
   ViewChild,
   ViewContainerRef,
   AfterViewInit,
+  ChangeDetectionStrategy,
 } from '@angular/core';
 import { DynamicCheckboxComponent } from './dynamic-checkbox/dynamic-checkbox.component';
 import { DynamicInputComponent } from './dynamic-input/dynamic-input.component';
@@ -14,6 +15,7 @@ import { FormGroup } from '@angular/forms';
   selector: 'app-dynamic-field',
   templateUrl: './dynamic-field.component.html',
   styleUrls: ['./dynamic-field.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DynamicFieldComponent implements AfterViewInit {
   formName: FormGroup;
