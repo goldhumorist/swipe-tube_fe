@@ -1,3 +1,4 @@
+import { FEATURE_NAME } from './../../../core';
 import {
   ILoginData,
   ILoginResponseData,
@@ -5,36 +6,35 @@ import {
   ISignupResponse,
 } from './../interfaces/interfaces';
 import { createAction, props } from '@ngrx/store';
-import { USER_FEATURE_NAME } from './user.selector';
 
 // Login Actions
 export const login = createAction(
-  `${USER_FEATURE_NAME} login`,
+  `${FEATURE_NAME.USER} login`,
   props<ILoginData>(),
 );
 
 export const loginSuccess = createAction(
-  `${USER_FEATURE_NAME} login success`,
+  `${FEATURE_NAME.USER} login success`,
   props<ILoginResponseData>(),
 );
 
 export const loginFailed = createAction(
-  `${USER_FEATURE_NAME} login failed`,
+  `${FEATURE_NAME.USER} login failed`,
   props<{ errorMessage: string }>(),
 );
 
 // Signup Actions
 export const signup = createAction(
-  `${USER_FEATURE_NAME} signup`,
+  `${FEATURE_NAME.USER} signup`,
   props<ISignupData>(),
 );
 
 export const signupSuccess = createAction(
-  `${USER_FEATURE_NAME} signup success`,
+  `${FEATURE_NAME.USER} signup success`,
   props<ISignupResponse>(),
 );
 
 export const signupFailed = createAction(
-  `${USER_FEATURE_NAME} signup failed`,
+  `${FEATURE_NAME.USER} signup failed`,
   props<{ errorMessage: string }>(),
 );

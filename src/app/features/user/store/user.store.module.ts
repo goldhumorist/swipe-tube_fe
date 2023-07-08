@@ -1,4 +1,4 @@
-import { USER_FEATURE_NAME } from './user.selector';
+import { FEATURE_NAME } from './../../../core';
 import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { NgModule } from '@angular/core';
@@ -8,7 +8,7 @@ import { UserEffects } from './user.effects';
 @NgModule({
   declarations: [],
   imports: [
-    StoreModule.forFeature(USER_FEATURE_NAME, userReducer),
+    StoreModule.forFeature(FEATURE_NAME.USER, userReducer),
     EffectsModule.forFeature([UserEffects]),
   ],
 })
