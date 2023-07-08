@@ -12,3 +12,9 @@
   linkText="Login!"
   [navigateTo]="loginPageLink"
 ></app-navigation-link>
+
+<ng-container *ngIf="isLoading$ | async">
+  <app-loading-overlay>
+    <app-loader></app-loader>
+  </app-loading-overlay>
+</ng-container>

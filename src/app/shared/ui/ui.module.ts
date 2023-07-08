@@ -3,10 +3,25 @@ import { CommonModule } from '@angular/common';
 import { ButtonComponent } from './button';
 import { NavigationLinkComponent } from './navigation-link';
 import { RouterModule } from '@angular/router';
+import { LoaderComponent } from './loader/loader.component';
+import { FooterComponent } from './footer/footer.component';
+import { LoadingOverlayComponent } from './loading-overlay/loading-overlay.component';
 
 @NgModule({
-  declarations: [ButtonComponent, NavigationLinkComponent],
+  declarations: [
+    ButtonComponent,
+    NavigationLinkComponent,
+    LoaderComponent,
+    FooterComponent,
+    LoadingOverlayComponent,
+  ],
   imports: [CommonModule, RouterModule],
-  exports: [ButtonComponent, NavigationLinkComponent],
+  exports: [
+    ButtonComponent,
+    NavigationLinkComponent,
+    LoaderComponent,
+    FooterComponent,
+    LoadingOverlayComponent,
+  ],
 })
 export class UiModule {}

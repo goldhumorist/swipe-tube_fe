@@ -1,7 +1,6 @@
 import { IDynamicFormGroup } from '../../../../shared/interfaces/';
 import { ILoginData, UserService } from '../../../../features/user';
-import { ChangeDetectionStrategy, Component, OnDestroy } from '@angular/core';
-import { Subject, takeUntil } from 'rxjs';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
   AppRouteEnum,
   UserRouteEnum,
@@ -14,7 +13,7 @@ import { FormGroup } from '@angular/forms';
   styleUrls: ['./login.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class LoginComponent implements OnDestroy {
+export class LoginComponent {
   model: IDynamicFormGroup<unknown> = {
     email: {
       type: 'text',
@@ -37,32 +36,15 @@ export class LoginComponent implements OnDestroy {
     },
   };
 
-  destroy$: Subject<boolean> = new Subject<boolean>();
+  constructor(private readonly userService: UserService) {}
+
+  isLoading$ = this.userService.isLoading$;
 
   signupPageLink = `${AppRouteEnum.User}/${UserRouteEnum.Signup}`;
 
-  constructor(private readonly userService: UserService) {}
-
   onSubmit(loginFormGroup: FormGroup): void {
-    const loginData: ILoginData = loginFormGroup.value;
-    console.log('loginData', loginData);
+    const loginData: ILoginData = { data: loginFormGroup.value };
 
-    this.userService
-      .login(loginData)
-      .pipe(takeUntil(this.destroy$))
-      .subscribe({
-        next: () => {
-          // TODO redirect to main page(video)
-          console.log('Login success');
-        },
-        complete: () => {
-          console.log('Login complete');
-        },
-      });
-  }
-
-  ngOnDestroy(): void {
-    this.destroy$.next(true);
-    this.destroy$.unsubscribe();
+    this.userService.login(loginData);
   }
 }

@@ -1,36 +1,23 @@
 import { Injectable } from '@angular/core';
-import { ILoginData, ILoginResponse, ISignupResponse } from '../interfaces';
-import { UserApi } from '../api/user.api';
-import { EMPTY, Observable, catchError, tap } from 'rxjs';
-import { NotifierService } from 'angular-notifier';
+import { ILoginData, ISignupData } from '../interfaces';
+import { Observable } from 'rxjs';
+import { Store } from '@ngrx/store';
+import { getIsLoading } from '../store/user.selector';
+import { login, signup } from '../store/user.actions';
 
 @Injectable({
   providedIn: 'root',
 })
 export class UserService {
-  constructor(private userApi: UserApi, private notifier: NotifierService) {}
+  constructor(private store: Store) {}
 
-  signup(data: FormData): Observable<ISignupResponse> {
-    return this.userApi.signup(data).pipe(
-      tap(() => {
-        this.notifier.notify('success', 'Welcome ;3');
-      }),
-      catchError(error => {
-        this.notifier.notify('error', error.message);
-        return EMPTY;
-      }),
-    );
+  isLoading$: Observable<boolean> = this.store.select(getIsLoading);
+
+  signup(data: ISignupData): void {
+    this.store.dispatch(signup(data));
   }
 
-  login(data: ILoginData): Observable<ILoginResponse> {
-    return this.userApi.login(data).pipe(
-      tap(() => {
-        this.notifier.notify('success', 'Welcome ;3');
-      }),
-      catchError(error => {
-        this.notifier.notify('error', error.message);
-        return EMPTY;
-      }),
-    );
+  login(data: ILoginData): void {
+    this.store.dispatch(login(data));
   }
 }

@@ -1,5 +1,6 @@
+import { RootStoreModule } from './core/store/root.store.module';
 import { httpInterceptorProviders } from './core/http-interceptors';
-import { NgModule } from '@angular/core';
+import { NgModule, isDevMode } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app.routing.module';
@@ -8,6 +9,8 @@ import { StoreModule } from '@ngrx/store';
 import { LayoutsModule } from './layouts';
 import { HttpClientModule } from '@angular/common/http';
 import { NotifierModule } from 'angular-notifier';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [AppComponent],
@@ -17,7 +20,10 @@ import { NotifierModule } from 'angular-notifier';
     AppRoutingModule,
     HttpClientModule,
     LayoutsModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot(),
+    StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
+    EffectsModule.forRoot([]),
+    RootStoreModule,
   ],
   bootstrap: [AppComponent],
   providers: httpInterceptorProviders,

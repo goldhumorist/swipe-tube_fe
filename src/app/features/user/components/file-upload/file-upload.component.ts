@@ -1,10 +1,16 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Output,
+} from '@angular/core';
 import { ALLOWED_FILE_TYPES } from '../../enums';
 
 @Component({
   selector: 'app-file-upload',
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FileUploadComponent {
   fileName = '';

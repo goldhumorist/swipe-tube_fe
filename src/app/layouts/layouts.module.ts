@@ -1,11 +1,16 @@
 import { NgModule } from '@angular/core';
-import { UserLayoutComponent } from './user';
 import { RouterModule } from '@angular/router';
-import { MainLayoutComponent } from './main/main-layout.component';
+import { MainLayoutComponent } from './main';
+import { UserLayoutComponent } from './user';
+import { VideoLayoutComponent } from './video';
+import { SharedModule } from '../shared';
 
 @NgModule({
-  declarations: [UserLayoutComponent, MainLayoutComponent],
-  imports: [RouterModule],
-  exports: [UserLayoutComponent],
+  declarations: [
+    UserLayoutComponent,
+    MainLayoutComponent,
+    VideoLayoutComponent,
+  ],
+  imports: [RouterModule, SharedModule],
 })
 export class LayoutsModule {}
