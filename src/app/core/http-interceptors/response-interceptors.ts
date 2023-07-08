@@ -9,7 +9,7 @@ import {
 import { Observable, throwError } from 'rxjs';
 import { catchError, filter, map } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { Exception } from '../exeptions/exception';
+import { Exception } from '../exceptions/exception';
 import {
   IServerErrorResponse,
   IServerSuccessResponse,
