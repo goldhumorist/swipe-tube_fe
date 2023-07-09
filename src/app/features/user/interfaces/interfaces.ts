@@ -11,6 +11,12 @@ export interface ISignupData {
 
 export type ISignupRequestData = FormData;
 
+export interface ICheckAccessResponse {
+  username: string;
+  email: string;
+  avatarUrlPath?: string;
+}
+
 export interface ISignupResponse {
   username: string;
   email: string;
@@ -18,7 +24,7 @@ export interface ISignupResponse {
   accessToken: string;
 }
 
-export interface ILoginResponseData {
+export interface ILoginResponse {
   username: string;
   email: string;
   avatarUrlPath?: string;

@@ -1,10 +1,7 @@
 import { IDynamicFormGroup } from '../../../../shared/interfaces/';
 import { ILoginData, UserService } from '../../../../features/user';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import {
-  AppRouteEnum,
-  UserRouteEnum,
-} from './../../../../core/enums/app-route.enum';
+import { PATH_TO_SIGNUP } from './../../../../core/enums/app-route.enum';
 import { FormGroup } from '@angular/forms';
 
 @Component({
@@ -40,7 +37,7 @@ export class LoginComponent {
 
   isLoading$ = this.userService.isLoading$;
 
-  signupPageLink = `${AppRouteEnum.User}/${UserRouteEnum.Signup}`;
+  signupPageLink = PATH_TO_SIGNUP;
 
   onSubmit(loginFormGroup: FormGroup): void {
     const loginData: ILoginData = { data: loginFormGroup.value };

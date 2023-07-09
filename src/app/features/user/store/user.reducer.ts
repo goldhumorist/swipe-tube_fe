@@ -1,8 +1,12 @@
 import {
+  checkAccess,
+  checkAccessFailed,
+  checkAccessSuccess,
   login,
   loginFailed,
   loginSuccess,
   signup,
+  signupFailed,
   signupSuccess,
 } from './user.actions';
 import { createReducer, on } from '@ngrx/store';
@@ -12,7 +16,7 @@ export interface IUserState {
     username: string;
     email: string;
     avatarUrlPath?: string;
-    accessToken: string;
+    accessToken?: string;
   };
   isLoading: boolean;
   errorMessage: string;
@@ -32,35 +36,25 @@ export const initialUserState: IUserState = {
 export const userReducer = createReducer(
   initialUserState,
 
-  // Login
-  on(login, state => ({
+  on(login, signup, checkAccess, state => ({
     ...state,
     isLoading: true,
   })),
-  on(loginSuccess, (state, userData) => ({
+
+  on(loginSuccess, signupSuccess, checkAccessSuccess, (state, userData) => ({
     ...state,
     userData,
-    isLoading: false,
-  })),
-  on(loginFailed, (state, { errorMessage }) => ({
-    ...state,
-    errorMessage,
     isLoading: false,
   })),
 
-  // Signup
-  on(signup, state => ({
-    ...state,
-    isLoading: true,
-  })),
-  on(signupSuccess, (state, userData) => ({
-    ...state,
-    userData,
-    isLoading: false,
-  })),
-  on(loginFailed, (state, { errorMessage }) => ({
-    ...state,
-    errorMessage,
-    isLoading: false,
-  })),
+  on(
+    loginFailed,
+    signupFailed,
+    checkAccessFailed,
+    (state, { errorMessage }) => ({
+      ...state,
+      errorMessage,
+      isLoading: false,
+    }),
+  ),
 );

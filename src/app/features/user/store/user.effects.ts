@@ -13,7 +13,7 @@ import { UserApi } from '../api/user.api';
 import { Router } from '@angular/router';
 import { LocalStorageService, NotificationService } from './../../../core/';
 import { Action } from '@ngrx/store';
-import { ILoginResponseData, ISignupResponse } from '../interfaces';
+import { ILoginResponse, ISignupResponse } from '../interfaces';
 
 @Injectable()
 export class UserEffects {
@@ -51,9 +51,7 @@ export class UserEffects {
     );
   });
 
-  private handleSuccess(
-    responseData: ILoginResponseData | ISignupResponse,
-  ): void {
+  private handleSuccess(responseData: ILoginResponse | ISignupResponse): void {
     this.notifier.showSuccessNotification('Welcome ;3');
 
     this.localStorage.setAccessToken(responseData.accessToken);
