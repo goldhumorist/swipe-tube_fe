@@ -17,8 +17,3 @@ export const getUsername = createSelector(
 );
 
 export const getEmail = createSelector(getUserData, state => state?.email);
-
-export const getAccessToken = createSelector(
-  getUserData,
-  state => state?.accessToken,
-);

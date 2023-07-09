@@ -16,7 +16,6 @@ export interface IUserState {
     username: string;
     email: string;
     avatarUrlPath?: string;
-    accessToken?: string;
   };
   isLoading: boolean;
   errorMessage: string;
@@ -28,7 +27,6 @@ export const initialUserState: IUserState = {
     username: '',
     email: '',
     avatarUrlPath: '',
-    accessToken: '',
   },
   errorMessage: '',
 };
@@ -43,7 +41,11 @@ export const userReducer = createReducer(
 
   on(loginSuccess, signupSuccess, checkAccessSuccess, (state, userData) => ({
     ...state,
-    userData,
+    userData: {
+      email: userData.email,
+      username: userData.username,
+      avatarUrlPath: userData.avatarUrlPath,
+    },
     isLoading: false,
   })),
 
