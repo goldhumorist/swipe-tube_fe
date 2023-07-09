@@ -1,3 +1,4 @@
+import { LocalStorageService } from './../services/local-storage.service';
 import { SessionApi } from './../../features/user/api/session.api';
 import {
   checkAccess,
@@ -19,6 +20,7 @@ class PermissionsService {
     private router: Router,
     private store: Store,
     private sessionApi: SessionApi,
+    private localStorageService: LocalStorageService,
   ) {}
 
   canActivate(): Observable<boolean | UrlTree> {
@@ -37,6 +39,8 @@ class PermissionsService {
           }),
           catchError(error => {
             const errorMessage = error.message;
+
+            this.localStorageService.removeAccessToken();
 
             this.store.dispatch(checkAccessFailed({ errorMessage }));
 
