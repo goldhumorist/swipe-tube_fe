@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { ApiService } from 'src/app/core';
 import {
   ISignupResponse,
-  ILoginResponseData,
+  ILoginResponse,
   ILoginRequestData,
   ISignupRequestData,
 } from '../interfaces';
@@ -14,6 +14,7 @@ import { Observable } from 'rxjs';
 })
 export class UserApi {
   constructor(private apiService: ApiService) {}
+
   private basePath = UserApiPath.basicUserPath;
 
   public signup(data: ISignupRequestData): Observable<ISignupResponse> {
@@ -23,10 +24,7 @@ export class UserApi {
     );
   }
 
-  public login(data: ILoginRequestData): Observable<ILoginResponseData> {
-    return this.apiService.post<ILoginResponseData>(
-      `${this.basePath}/login`,
-      data,
-    );
+  public login(data: ILoginRequestData): Observable<ILoginResponse> {
+    return this.apiService.post<ILoginResponse>(`${this.basePath}/login`, data);
   }
 }

@@ -1,7 +1,8 @@
 import { FEATURE_NAME } from './../../../core';
 import {
+  ICheckAccessResponse,
   ILoginData,
-  ILoginResponseData,
+  ILoginResponse,
   ISignupData,
   ISignupResponse,
 } from './../interfaces/interfaces';
@@ -15,7 +16,7 @@ export const login = createAction(
 
 export const loginSuccess = createAction(
   `${FEATURE_NAME.USER} login success`,
-  props<ILoginResponseData>(),
+  props<ILoginResponse>(),
 );
 
 export const loginFailed = createAction(
@@ -36,5 +37,18 @@ export const signupSuccess = createAction(
 
 export const signupFailed = createAction(
   `${FEATURE_NAME.USER} signup failed`,
+  props<{ errorMessage: string }>(),
+);
+
+// Checking user access status
+export const checkAccess = createAction(`${FEATURE_NAME.USER} check access`);
+
+export const checkAccessSuccess = createAction(
+  `${FEATURE_NAME.USER} check access success`,
+  props<ICheckAccessResponse>(),
+);
+
+export const checkAccessFailed = createAction(
+  `${FEATURE_NAME.USER} check access failed`,
   props<{ errorMessage: string }>(),
 );
