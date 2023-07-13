@@ -13,7 +13,7 @@ import {
   ALLOWED_IMAGE_FILE_TYPES,
   ALLOWED_VIDEO_FILE_TYPES,
   AllowedFormats,
-} from '../../enums';
+} from '../../../features/user/enums';
 import { faDownload } from '@fortawesome/free-solid-svg-icons';
 import { NotificationService } from 'src/app/core';
 @Component({

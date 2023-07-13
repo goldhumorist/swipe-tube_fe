@@ -1,0 +1,13 @@
+<app-modal-overlay (click)="onCrossClick()">
+  <div class="modal">
+    <fa-icon
+      [icon]="faClose"
+      (click)="onCrossClick()"
+      class="modal__close fa-xl"
+    />
+    <video class="modal__video" controls autoplay>
+      <source [src]="formVideoPath(videoItem.videoUrlPath)" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</app-modal-overlay>

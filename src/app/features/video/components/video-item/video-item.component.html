@@ -1,0 +1,16 @@
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<img
+  [src]="formThumbnailPath(videoItem.thumbnailUrlPath)"
+  class="video__image"
+  (click)="onVideoClick(videoItem)"
+  alt="video image"
+/>
+<div class="video__info" (click)="onVideoClick(videoItem)">
+  <p class="info text__small">
+    <fa-icon class="info__icon" [icon]="faHeart"></fa-icon>999
+  </p>
+  <p class="info text__small">
+    <fa-icon class="info__icon" [icon]="faHeart"></fa-icon>999
+  </p>
+</div>

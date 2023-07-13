@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 import { LoaderComponent } from './loader/loader.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoadingOverlayComponent } from './loading-overlay/loading-overlay.component';
+import { ModalOverlayComponent } from './modal-overlay/modal-overlay.component';
 
 @NgModule({
   declarations: [
@@ -14,6 +15,7 @@ import { LoadingOverlayComponent } from './loading-overlay/loading-overlay.compo
     LoaderComponent,
     FooterComponent,
     LoadingOverlayComponent,
+    ModalOverlayComponent,
   ],
   imports: [CommonModule, RouterModule],
   exports: [
@@ -21,6 +23,7 @@ import { LoadingOverlayComponent } from './loading-overlay/loading-overlay.compo
     NavigationLinkComponent,
     LoaderComponent,
     FooterComponent,
+    ModalOverlayComponent,
     LoadingOverlayComponent,
   ],
 })
