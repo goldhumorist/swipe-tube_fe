@@ -1,8 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ILoginData, ISignupData } from '../interfaces';
-import { Observable } from 'rxjs';
-import { Store } from '@ngrx/store';
-import { getIsLoading } from '../store/user.selector';
+import { Store, select } from '@ngrx/store';
+import { getIsLoading, getUserData } from '../store/user.selector';
 import { login, signup } from '../store/user.actions';
 
 @Injectable({
@@ -11,7 +10,8 @@ import { login, signup } from '../store/user.actions';
 export class UserService {
   constructor(private store: Store) {}
 
-  isLoading$: Observable<boolean> = this.store.select(getIsLoading);
+  isLoadingSelector$ = this.store.pipe(select(getIsLoading));
+  userDataSelector$ = this.store.pipe(select(getUserData));
 
   signup(data: ISignupData): void {
     this.store.dispatch(signup(data));

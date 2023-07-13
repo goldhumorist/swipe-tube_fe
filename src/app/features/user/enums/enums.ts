@@ -1,3 +1,5 @@
+import { environment } from 'src/environments/environment';
+
 export enum UserApiPath {
   basicUserPath = '/api/v1/user',
   basicSessionPath = '/api/v1/session',
@@ -11,3 +13,5 @@ export enum AllowedFormats {
   video = 'video',
   image = 'image',
 }
+
+export const DEFAULT_PROFILE_IMAGE_URL = `${environment.baseContentUrl}/default_profile_image.jpg`;
