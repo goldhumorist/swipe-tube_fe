@@ -2,6 +2,9 @@
   &__container {
     @apply w-[340px] p-[40px] md:w-[440px] bg-bg-secondary backdrop-blur-lg
      shadow-container rounded-xl text-center;
+    ::ng-deep .file__container {
+      @apply pb-4;
+    }
   }
   &__title {
     @apply text-h1-mobile mb-4;

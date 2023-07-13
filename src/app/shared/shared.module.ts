@@ -9,6 +9,8 @@ import {
   DynamicFieldComponent,
 } from './components';
 import { UiModule } from './ui';
+import { DropUploadDirective } from './directives/drop-upload-directive';
+import { InfinitePaginationDirective } from './directives/infinite-pagination-directive';
 
 @NgModule({
   declarations: [
@@ -16,9 +18,16 @@ import { UiModule } from './ui';
     DynamicInputComponent,
     DynamicCheckboxComponent,
     DynamicErrorComponent,
+    DropUploadDirective,
+    InfinitePaginationDirective,
     DynamicFieldComponent,
   ],
   imports: [CommonModule, ReactiveFormsModule, UiModule],
-  exports: [DynamicFormComponent, UiModule],
+  exports: [
+    DynamicFormComponent,
+    UiModule,
+    DropUploadDirective,
+    InfinitePaginationDirective,
+  ],
 })
 export class SharedModule {}

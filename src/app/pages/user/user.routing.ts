@@ -1,3 +1,4 @@
+import { AuthGuard } from './../../core/guards/authentication.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { UserRouteEnum } from 'src/app/core/enums/app-route.enum';
@@ -17,6 +18,12 @@ const routes: Routes = [
         path: UserRouteEnum.Login,
         loadChildren: () =>
           import('./containers/login').then(m => m.LoginModule),
+      },
+      {
+        path: UserRouteEnum.Profile,
+        canActivate: [AuthGuard],
+        loadChildren: () =>
+          import('./containers/profile').then(m => m.ProfileModule),
       },
       {
         path: '**',

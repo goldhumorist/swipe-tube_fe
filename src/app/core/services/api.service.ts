@@ -34,7 +34,6 @@ export class ApiService {
 
   public get<T>(subUrl: string, params?: HttpClientGetOptions): Observable<T> {
     const url = this.getFullUrl(subUrl);
-
     return this.httpService.get<T>(url, params);
   }
 

@@ -56,11 +56,20 @@ export class SignupComponent {
   loginPageLink = PATH_TO_LOGIN;
 
   onAvatarUpload(avatarFormData: FormData): void {
-    for (const key of avatarFormData.keys()) {
-      const avatarFormDataField = avatarFormData.get(key);
+    this.resetFormDataAvatar();
 
-      if (avatarFormDataField)
-        this.userFormData.append(key, avatarFormDataField);
+    for (const key of avatarFormData.keys()) {
+      const newFile = avatarFormData.get(key);
+
+      if (newFile) this.userFormData.append(key, newFile);
+    }
+  }
+
+  resetFormDataAvatar() {
+    const existingFile = this.userFormData.get('avatarImage');
+
+    if (existingFile) {
+      this.userFormData.delete('avatarImage');
     }
   }
 

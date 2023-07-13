@@ -1,0 +1,17 @@
+<div class="tabs__container">
+  <div class="tabs">
+    <a
+      class="tabs__link"
+      [routerLink]="myVideosPath"
+      [routerLinkActive]="'tabs__link--active'"
+      ><fa-icon class="tabs__icon fa-xl" [icon]="faArchive"></fa-icon
+    ></a>
+    <a
+      class="tabs__link"
+      [routerLink]="likedVideosPath"
+      [routerLinkActive]="'tabs__link--active'"
+      ><fa-icon class="tabs__icon fa-xl" [icon]="faHeart"></fa-icon
+    ></a>
+  </div>
+  <div class="tabs__separate-line"></div>
+</div>

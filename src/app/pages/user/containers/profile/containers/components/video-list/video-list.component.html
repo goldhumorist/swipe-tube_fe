@@ -1,0 +1,57 @@
+<div class="video__container">
+  <ul class="video__list">
+    <ng-container
+      *ngFor="
+        let video of videoList as videoList;
+        index as index;
+        trackBy: trackByFn
+      "
+    >
+      <ng-container *ngIf="isLastElement(index); else restVideos">
+        <li
+          class="video__item"
+          appInfinitePagination
+          (visibilityChange)="onIntersection($event)"
+        >
+          <img
+            [src]="formThumbnailPath(video.thumbnailUrlPath)"
+            class="video__image"
+            alt="video image"
+          />
+          <div class="video__info">
+            <p class="info text__small">
+              <fa-icon class="info__icon" [icon]="faHeart"></fa-icon>999
+            </p>
+            <p class="info text__small">
+              <fa-icon class="info__icon" [icon]="faHeart"></fa-icon>999
+            </p>
+          </div>
+        </li>
+      </ng-container>
+
+      <ng-template #restVideos>
+        <li class="video__item">
+          <img
+            [src]="formThumbnailPath(video.thumbnailUrlPath)"
+            class="video__image"
+            alt="video image"
+          />
+          <div class="video__info">
+            <p class="info text__small">
+              <fa-icon class="info__icon" [icon]="faHeart"></fa-icon>999
+            </p>
+            <p class="info text__small">
+              <fa-icon class="info__icon" [icon]="faHeart"></fa-icon>999
+            </p>
+          </div>
+        </li>
+      </ng-template>
+    </ng-container>
+  </ul>
+
+  <ng-container *ngIf="isLoading$ | async">
+    <div class="video__loader">
+      <app-loader></app-loader>
+    </div>
+  </ng-container>
+</div>
