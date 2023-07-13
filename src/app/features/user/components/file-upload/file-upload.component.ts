@@ -74,7 +74,7 @@ export class FileUploadComponent implements OnChanges {
 
     switch (this.format) {
       case AllowedFormats.image:
-        if (this.isCorrectImageFileType(file)) {
+        if (this.isCorrectFileType(file, ALLOWED_IMAGE_FILE_TYPES)) {
           formData.append('avatarImage', file);
 
           this.fileName = file.name;
@@ -87,7 +87,7 @@ export class FileUploadComponent implements OnChanges {
         break;
 
       case AllowedFormats.video:
-        if (this.isCorrectVideoFileType(file)) {
+        if (this.isCorrectFileType(file, ALLOWED_VIDEO_FILE_TYPES)) {
           formData.append('video', file);
 
           this.fileName = file.name;
@@ -101,15 +101,9 @@ export class FileUploadComponent implements OnChanges {
     }
   }
 
-  private isCorrectImageFileType(file: File) {
+  private isCorrectFileType(file: File, allowedTypes: Array<string>) {
     const extension = file.name.split('.')[1].toLowerCase();
 
-    return ALLOWED_IMAGE_FILE_TYPES.includes(extension.toLowerCase());
-  }
-
-  private isCorrectVideoFileType(file: File) {
-    const extension = file.name.split('.')[1].toLowerCase();
-
-    return ALLOWED_VIDEO_FILE_TYPES.includes(extension.toLowerCase());
+    return allowedTypes.includes(extension.toLowerCase());
   }
 }

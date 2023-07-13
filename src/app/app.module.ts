@@ -11,7 +11,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { NotifierModule } from 'angular-notifier';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [AppComponent],
@@ -25,7 +24,6 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: !isDevMode() }),
     EffectsModule.forRoot([]),
     RootStoreModule,
-    FontAwesomeModule,
   ],
   bootstrap: [AppComponent],
   providers: httpInterceptorProviders,
