@@ -6,13 +6,13 @@ import {
   loginFailed,
   loginSuccess,
   signup,
+  signupFailed,
   signupSuccess,
 } from './user.actions';
-import { Observable, catchError, map, of, switchMap, tap } from 'rxjs';
+import { catchError, map, of, switchMap, tap } from 'rxjs';
 import { UserApi } from '../api/user.api';
 import { Router } from '@angular/router';
 import { LocalStorageService, NotificationService } from './../../../core/';
-import { Action } from '@ngrx/store';
 import { ILoginResponse, ISignupResponse } from '../interfaces';
 
 @Injectable()
@@ -32,7 +32,13 @@ export class UserEffects {
         this.userApi.login(data).pipe(
           map(responseData => loginSuccess(responseData)),
           tap(responseData => this.handleSuccess(responseData)),
-          catchError(error => this.handleError(error)),
+          catchError(error => {
+            const errorMessage = error.message;
+
+            this.notifier.showFailedNotification(errorMessage);
+
+            return of(loginFailed({ errorMessage }));
+          }),
         ),
       ),
     );
@@ -45,7 +51,13 @@ export class UserEffects {
         this.userApi.signup(data).pipe(
           map(responseData => signupSuccess(responseData)),
           tap(responseData => this.handleSuccess(responseData)),
-          catchError(error => this.handleError(error)),
+          catchError(error => {
+            const errorMessage = error.message;
+
+            this.notifier.showFailedNotification(errorMessage);
+
+            return of(signupFailed({ errorMessage }));
+          }),
         ),
       ),
     );
@@ -57,13 +69,5 @@ export class UserEffects {
     this.localStorage.setAccessToken(responseData.accessToken);
 
     this.router.navigate([AppRouteEnum.Video]);
-  }
-
-  private handleError(error: Error): Observable<Action> {
-    const errorMessage = error.message;
-
-    this.notifier.showFailedNotification(errorMessage);
-
-    return of(loginFailed({ errorMessage }));
   }
 }

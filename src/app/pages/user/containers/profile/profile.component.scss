@@ -1,0 +1,44 @@
+.profile {
+  @apply w-[100vw] md:w-[75vw] h-[170px] md:h-[200px] flex items-center mb-4 p-4 sm:p-8 py-[30px] md:rounded-xl bg-bg-secondary backdrop-blur-lg
+    shadow-container;
+  &__avatar {
+    @apply w-[100px] h-[100px] md:w-[130px] md:h-[130px] overflow-hidden rounded-full object-cover m-0;
+  }
+  &__avatar-container {
+    @apply max-w-[100%] h-[100px] pr-5 self-start;
+  }
+  &__info {
+    @apply flex items-start flex-col;
+  }
+  &__upload {
+    @apply flex flex-col h-[100%];
+    > :first-child {
+      @apply flex flex-grow;
+    }
+  }
+  &__side-container {
+    @apply h-[100%] flex flex-col flex-grow max-w-[225px] md:max-w-[500px];
+    ::ng-deep .file__side-container {
+      @apply flex-grow flex;
+    }
+  }
+  &__username {
+    @apply leading-3;
+  }
+  &__email {
+    @apply leading-6 text-slate-500;
+  }
+}
+
+.confirm {
+  &__upload-btn {
+    @apply bg-green-300 p-2 mr-2 rounded-xl hover:scale-110 transition-transform;
+  }
+  &__cancel-btn {
+    @apply bg-danger-primary p-2 rounded-xl hover:scale-110 transition-transform;
+  }
+}
+
+.tabs-categories-wrapper {
+  @apply bg-white w-full sticky min-h-[120vh] md:min-h-[100vh] md:w-[75vw] md:shadow-container md:rounded-xl;
+}

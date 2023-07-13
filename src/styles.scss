@@ -31,3 +31,7 @@ body {
     @apply text-body-small-mobile md:text-body-small font-normal;
   }
 }
+.glass-container {
+  @apply bg-bg-secondary backdrop-blur-lg
+  shadow-container rounded-xl;
+}

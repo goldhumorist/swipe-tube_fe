@@ -1,41 +1,115 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  ElementRef,
   EventEmitter,
+  Input,
+  OnChanges,
   Output,
+  SimpleChanges,
+  ViewChild,
 } from '@angular/core';
-import { ALLOWED_FILE_TYPES } from '../../enums';
-
+import {
+  ALLOWED_IMAGE_FILE_TYPES,
+  ALLOWED_VIDEO_FILE_TYPES,
+  AllowedFormats,
+} from '../../enums';
+import { faDownload } from '@fortawesome/free-solid-svg-icons';
+import { NotificationService } from 'src/app/core';
 @Component({
   selector: 'app-file-upload',
   templateUrl: './file-upload.component.html',
   styleUrls: ['./file-upload.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class FileUploadComponent {
+export class FileUploadComponent implements OnChanges {
   fileName = '';
   isFileTypeValid: boolean;
+  faDownload = faDownload;
+  isFileSelected: boolean;
+
+  constructor(private notifier: NotificationService) {}
+
+  @Input() isUploadDisabled = false;
+
+  @Input() uploadText: string;
+
+  @Input() format: string;
+
+  @Input() showCircle = false;
 
   @Output() formDataEmitter: EventEmitter<FormData> =
     new EventEmitter<FormData>();
+
+  @ViewChild('fileUpload')
+  fileUploadInput: ElementRef;
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const isUploadCanceled =
+      changes['isUploadDisabled'] &&
+      !changes['isUploadDisabled'].currentValue &&
+      this.fileUploadInput;
+
+    if (isUploadCanceled) {
+      this.fileName = '';
+      this.fileUploadInput.nativeElement.value = '';
+    }
+  }
 
   onFileSelected(event: Event) {
     const inputElement = event.target as HTMLInputElement;
     const file: File = inputElement.files?.[0] as File;
 
-    if (file && this.isCorrectFileType(file)) {
-      this.fileName = file.name;
-      const formData = new FormData();
-
-      formData.append('avatarImage', file);
-
-      this.formDataEmitter.emit(formData);
+    if (file) {
+      this.handleFileEmit(file);
     }
   }
 
-  private isCorrectFileType(file: File) {
+  onFileDrop(file: File) {
+    this.handleFileEmit(file);
+  }
+
+  handleFileEmit(file: File) {
+    const formData = new FormData();
+
+    switch (this.format) {
+      case AllowedFormats.image:
+        if (this.isCorrectImageFileType(file)) {
+          formData.append('avatarImage', file);
+
+          this.fileName = file.name;
+
+          this.formDataEmitter.emit(formData);
+          break;
+        }
+
+        this.notifier.showFailedNotification('Wrong format');
+        break;
+
+      case AllowedFormats.video:
+        if (this.isCorrectVideoFileType(file)) {
+          formData.append('video', file);
+
+          this.fileName = file.name;
+
+          this.formDataEmitter.emit(formData);
+          break;
+        }
+
+        this.notifier.showFailedNotification('Wrong format');
+        break;
+    }
+  }
+
+  private isCorrectImageFileType(file: File) {
     const extension = file.name.split('.')[1].toLowerCase();
 
-    return ALLOWED_FILE_TYPES.includes(extension.toLowerCase());
+    return ALLOWED_IMAGE_FILE_TYPES.includes(extension.toLowerCase());
+  }
+
+  private isCorrectVideoFileType(file: File) {
+    const extension = file.name.split('.')[1].toLowerCase();
+
+    return ALLOWED_VIDEO_FILE_TYPES.includes(extension.toLowerCase());
   }
 }

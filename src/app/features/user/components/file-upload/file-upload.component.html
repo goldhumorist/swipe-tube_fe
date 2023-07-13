@@ -6,11 +6,29 @@
   (change)="onFileSelected($event)"
   #fileUpload
 />
+<!-- TODO:rebuild for signup and profile -->
 
 <div class="file__container">
-  <div class="file__upload-circle" (click)="fileUpload.click()"></div>
+  <div
+    *ngIf="showCircle && !isUploadDisabled"
+    class="file__upload-circle"
+    (click)="fileUpload.click()"
+  ></div>
   <div class="file__side-container">
-    <p class="text__body">{{ fileName || 'Choose your avatar' }}</p>
-    <div class="file__upload-area"></div>
+    <p class="text__body text__caption">
+      {{ fileName || uploadText
+      }}<fa-icon
+        class="file__icon"
+        [icon]="faDownload"
+        *ngIf="!isUploadDisabled"
+        (click)="fileUpload.click()"
+      ></fa-icon>
+    </p>
+    <div
+      class="file__upload-area"
+      *ngIf="!isUploadDisabled"
+      appDropUpload
+      (appDropUpload)="onFileDrop($event)"
+    ></div>
   </div>
 </div>

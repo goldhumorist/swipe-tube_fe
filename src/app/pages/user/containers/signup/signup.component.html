@@ -1,5 +1,10 @@
 <app-user-form [title]="'Sign up'">
-  <app-file-upload (formDataEmitter)="onAvatarUpload($event)"></app-file-upload>
+  <app-file-upload
+    [showCircle]="true"
+    [format]="'image'"
+    [uploadText]="'Upload avatar'"
+    (formDataEmitter)="onAvatarUpload($event)"
+  ></app-file-upload>
   <app-dynamic-form
     [model]="model"
     [formBtnText]="'Sign up'"

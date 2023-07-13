@@ -3,15 +3,18 @@
     display: none;
   }
   &__upload-circle {
-    @apply w-[80px] h-[80px] bg-gradient-primary rounded-full cursor-pointer;
+    @apply mr-3 w-[80px] h-[80px] bg-gradient-primary rounded-full cursor-pointer;
   }
   &__upload-area {
-    @apply border-2 border-dashed border-text-primary-black h-[50px];
+    @apply border-2 border-dashed border-text-primary-black h-[100%] w-[100%];
   }
   &__side-container {
-    @apply pl-4;
+    @apply flex-grow flex flex-col items-start text-slate-400;
+  }
+  &__icon {
+    @apply pl-2 cursor-pointer;
   }
   &__container {
-    @apply flex mb-4;
+    @apply flex flex-grow;
   }
 }

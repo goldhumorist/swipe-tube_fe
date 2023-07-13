@@ -1,0 +1,19 @@
+.tabs {
+  @apply p-3 flex items-center justify-center gap-10;
+  &__container {
+    @apply relative;
+  }
+  &__link {
+    @apply relative p-1 px-2;
+    &::after {
+      @apply content-[''] absolute left-0 bottom-[-1px]
+            w-full h-[3px] -scale-x-0 transition-transform bg-gradient-primary;
+    }
+    &.tabs__link--active::after {
+      @apply scale-x-100;
+    }
+  }
+  &__separate-line {
+    @apply w-full h-[5px] bg-gradient-primary absolute;
+  }
+}
