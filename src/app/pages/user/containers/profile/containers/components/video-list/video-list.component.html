@@ -7,7 +7,7 @@
         trackBy: trackByFn
       "
     >
-      <ng-container *ngIf="index === videoList?.length! - 1; else restVideos">
+      <ng-container *ngIf="isLastElement(index); else restVideos">
         <li
           class="video__item"
           appInfinitePagination
@@ -28,6 +28,7 @@
           </div>
         </li>
       </ng-container>
+
       <ng-template #restVideos>
         <li class="video__item">
           <img
@@ -47,6 +48,7 @@
       </ng-template>
     </ng-container>
   </ul>
+
   <ng-container *ngIf="isLoading$ | async">
     <div class="video__loader">
       <app-loader></app-loader>

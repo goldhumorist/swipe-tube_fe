@@ -11,6 +11,7 @@
       <p class="profile__username text__body">Profile username</p>
       <p class="profile__email text__caption">test@gmail.com</p>
     </div>
+
     <div class="profile__upload">
       <app-file-upload
         [uploadText]="'Upload video'"
@@ -19,10 +20,12 @@
         [isUploadDisabled]="isVideoUploaded"
         (formDataEmitter)="onVideoUpload($event)"
       ></app-file-upload>
+
       <div class="confirm__container" *ngIf="isVideoUploaded">
         <button (click)="onUploadConfirm()" class="confirm__upload-btn">
           Upload
         </button>
+
         <button (click)="onUploadCancel()" class="confirm__cancel-btn">
           Cancel
         </button>
@@ -30,6 +33,7 @@
     </div>
   </div>
 </div>
+
 <div class="tabs-categories-wrapper">
   <app-profile-tabs></app-profile-tabs>
   <router-outlet></router-outlet>

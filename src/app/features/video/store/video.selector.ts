@@ -4,17 +4,27 @@ import { IVideoState } from './video.reducer';
 
 const selectFeature = createFeatureSelector<IVideoState>(FEATURE_NAME.VIDEO);
 
-export const selectIsLoading = createSelector(
+export const getIsLoadingState = createSelector(
   selectFeature,
   state => state.isLoading,
 );
 
-export const selectVideoData = createSelector(
+export const getVideoDataState = createSelector(
   selectFeature,
   state => state.videoData,
 );
 
-export const selectUserVideos = createSelector(
-  selectVideoData,
+export const getUserVideosState = createSelector(
+  getVideoDataState,
   state => state?.userVideos,
+);
+
+export const getPaginationState = createSelector(
+  selectFeature,
+  state => state.pagination,
+);
+
+export const getPageState = createSelector(
+  getPaginationState,
+  state => state.page,
 );
