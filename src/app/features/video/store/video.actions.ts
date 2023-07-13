@@ -1,54 +1,60 @@
 import { FEATURE_NAME } from '../../../core';
-import {
-  IGetUserVideosData,
-  IMyVideosResponse,
-  IUpdateUserVideos,
-} from '../interfaces/interfaces';
+import { IUserVideosResponse } from '../interfaces/interfaces';
 import { createAction, props } from '@ngrx/store';
 
 //User Videos Actions
-export const getUserVideos = createAction(
-  `${FEATURE_NAME.VIDEO} getUserVideos`,
-  props<IGetUserVideosData>(),
+export const initUserVideos = createAction(
+  `${FEATURE_NAME.VIDEO} init user videos`,
 );
 
-export const getUserVideosSuccess = createAction(
-  `${FEATURE_NAME.VIDEO} getUserVideosSuccess success`,
-  props<IMyVideosResponse>(),
+export const initUserVideosSuccess = createAction(
+  `${FEATURE_NAME.VIDEO} init user videos success`,
+  props<IUserVideosResponse>(),
 );
 
-export const getUserVideosFailed = createAction(
-  `${FEATURE_NAME.VIDEO} getUserVideosSuccess failed`,
+export const initUserVideosFailed = createAction(
+  `${FEATURE_NAME.VIDEO} init user videos failed`,
   props<{ errorMessage: string }>(),
 );
 
 // Upload Video Actions
-export const uploadUserVideo = createAction(
-  `${FEATURE_NAME.VIDEO} uploadVideo`,
+export const uploadNewVideo = createAction(
+  `${FEATURE_NAME.VIDEO} upload new video`,
   props<{ data: FormData }>(),
 );
 
-export const uploadUserVideoSuccess = createAction(
-  `${FEATURE_NAME.VIDEO} uploadVideo success`,
+export const uploadNewVideoSuccess = createAction(
+  `${FEATURE_NAME.VIDEO} upload new video success`,
 );
 
-export const uploadUserVideoFailed = createAction(
-  `${FEATURE_NAME.VIDEO} uploadVideo failed`,
+export const uploadNewVideoFailed = createAction(
+  `${FEATURE_NAME.VIDEO} upload new video failed`,
   props<{ errorMessage: string }>(),
 );
 
-// Update User Videos Actions
-export const updateUserVideos = createAction(
-  `${FEATURE_NAME.VIDEO} updateUserVideos`,
-  props<IUpdateUserVideos>(),
+// Load More User Videos Actions
+export const loadMoreUserVideos = createAction(
+  `${FEATURE_NAME.VIDEO} load more user videos`,
 );
 
-export const updateUserVideosSuccess = createAction(
-  `${FEATURE_NAME.VIDEO} updateUserVideos success`,
-  props<IMyVideosResponse>(),
+export const loadMoreUserVideosSuccess = createAction(
+  `${FEATURE_NAME.VIDEO} load more user videos success`,
+  props<IUserVideosResponse>(),
 );
 
-export const updateUserVideosFailed = createAction(
-  `${FEATURE_NAME.VIDEO} updateUserVideos failed`,
+export const loadMoreUserVideosFailed = createAction(
+  `${FEATURE_NAME.VIDEO} load more user videos failed`,
   props<{ errorMessage: string }>(),
+);
+
+// Pagination Actions
+export const updatePageValue = createAction(
+  `${FEATURE_NAME.VIDEO} update page`,
+  props<{ page: number }>(),
+);
+
+// Loading Actions
+export const setLoadingState = createAction(
+  `${FEATURE_NAME.VIDEO} set loading state`,
+  props<{ value: boolean }>(),
 );

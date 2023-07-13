@@ -1,6 +1,9 @@
-export interface IMyVideosResponse {
-  pagination: IVideoPagination;
-  videos: Array<IVideo>;
+export type IUploadVideo = FormData;
+
+export interface IUploadVideoResponse {
+  videoUrlPath: string;
+  thumbnailUrlPath: string;
+  description?: string | null;
 }
 
 export interface IVideoPagination {
@@ -15,20 +18,12 @@ export interface IVideo {
   description?: string;
 }
 
-export interface IMyVideosParams {
-  page: number;
-  limit: number;
+export interface IUserVideosResponse {
+  pagination: IVideoPagination;
+  videos: Array<IVideo>;
 }
 
-export interface IGetUserVideosData {
-  page: number;
-  limit: number;
-}
-export interface IUpdateUserVideos {
-  page: number;
-  limit: number;
-}
-export interface IUpdateUserVideosResponse {
+export interface ILoadUserVideosParams {
   page: number;
   limit: number;
 }

@@ -1,21 +1,23 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
-  uploadUserVideo,
-  updateUserVideos,
-  getUserVideos,
-  getUserVideosSuccess,
-  getUserVideosFailed,
-  updateUserVideosSuccess,
-  updateUserVideosFailed,
-  uploadUserVideoSuccess,
-  uploadUserVideoFailed,
+  uploadNewVideo,
+  loadMoreUserVideos,
+  initUserVideos,
+  initUserVideosSuccess,
+  initUserVideosFailed,
+  loadMoreUserVideosSuccess,
+  loadMoreUserVideosFailed,
+  uploadNewVideoSuccess,
+  uploadNewVideoFailed,
+  updatePageValue,
 } from './video.actions';
-import { catchError, map, of, switchMap, tap } from 'rxjs';
+import { catchError, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { NotificationService } from '../../../core';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { VideoService } from '../service';
 import { VideoProfilePagination } from '../enums';
+import { getPaginationState } from './video.selector';
 
 @Injectable()
 export class VideoEffects {
@@ -26,37 +28,33 @@ export class VideoEffects {
     private store: Store,
   ) {}
 
-  getUserVideos$ = createEffect(() => {
+  initUserVideos$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(getUserVideos),
-      switchMap(videoParams =>
-        this.videoService.getMyVideos(videoParams).pipe(
-          map(responseData => getUserVideosSuccess(responseData)),
-          catchError(error => {
-            const errorMessage = error.message;
-
-            this.notifier.showFailedNotification(errorMessage);
-
-            return of(getUserVideosFailed({ errorMessage }));
-          }),
+      ofType(initUserVideos),
+      withLatestFrom(this.store.pipe(select(getPaginationState))),
+      switchMap(([_, paginationData]) =>
+        this.videoService.loadUserVideosAPI(paginationData).pipe(
+          map(responseData => initUserVideosSuccess(responseData)),
+          tap(() => this.increasePage(paginationData.page)),
+          catchError(error =>
+            this.handleErrorResponse(error, initUserVideosFailed),
+          ),
         ),
       ),
     );
   });
 
-  updateUserVideos$ = createEffect(() => {
+  loadMoreUserVideos$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(updateUserVideos),
-      switchMap(videoParams =>
-        this.videoService.getMyVideos(videoParams).pipe(
-          map(responseData => updateUserVideosSuccess(responseData)),
-          catchError(error => {
-            const errorMessage = error.message;
-
-            this.notifier.showFailedNotification(errorMessage);
-
-            return of(updateUserVideosFailed({ errorMessage }));
-          }),
+      ofType(loadMoreUserVideos),
+      withLatestFrom(this.store.pipe(select(getPaginationState))),
+      switchMap(([_, paginationData]) =>
+        this.videoService.loadUserVideosAPI(paginationData).pipe(
+          map(responseData => loadMoreUserVideosSuccess(responseData)),
+          tap(() => this.increasePage(paginationData.page)),
+          catchError(error =>
+            this.handleErrorResponse(error, loadMoreUserVideosFailed),
+          ),
         ),
       ),
     );
@@ -64,29 +62,37 @@ export class VideoEffects {
 
   uploadVideo$ = createEffect(() => {
     return this.actions$.pipe(
-      ofType(uploadUserVideo),
+      ofType(uploadNewVideo),
       switchMap(({ data }) =>
-        this.videoService.uploadVideo(data).pipe(
-          map(() => uploadUserVideoSuccess()),
+        this.videoService.uploadVideoAPI(data).pipe(
+          map(() => uploadNewVideoSuccess()),
           tap(() => {
             this.notifier.showSuccessNotification('Video uploaded');
 
             this.store.dispatch(
-              getUserVideos({
-                page: VideoProfilePagination.startPage,
-                limit: VideoProfilePagination.limit,
-              }),
+              updatePageValue({ page: VideoProfilePagination.startPage }),
             );
-          }),
-          catchError(error => {
-            const errorMessage = error.message;
 
-            this.notifier.showFailedNotification(errorMessage);
-
-            return of(uploadUserVideoFailed({ errorMessage }));
+            this.store.dispatch(initUserVideos());
           }),
+          catchError(error =>
+            this.handleErrorResponse(error, uploadNewVideoFailed),
+          ),
         ),
       ),
     );
   });
+
+  private increasePage(currentPage: number) {
+    this.store.dispatch(updatePageValue({ page: currentPage + 1 }));
+  }
+
+  // eslint-disable-next-line @typescript-eslint/ban-types
+  private handleErrorResponse(error: Error, action: Function) {
+    const errorMessage = error.message;
+
+    this.notifier.showFailedNotification(errorMessage);
+
+    return of(action({ errorMessage }));
+  }
 }

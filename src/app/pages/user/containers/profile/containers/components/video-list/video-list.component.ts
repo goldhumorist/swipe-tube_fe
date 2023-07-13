@@ -25,4 +25,8 @@ export class VideoListComponent {
   onIntersection = (status: string) => this.loadNewVideosEmitter.emit(status);
 
   trackByFn = (index: number): number => index;
+
+  isLastElement(index: number): boolean {
+    return index === this.videoList?.length - 1;
+  }
 }

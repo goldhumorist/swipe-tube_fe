@@ -1,14 +1,21 @@
 import { Injectable } from '@angular/core';
 import { VideoApi } from '../api/video.api';
 import { Observable } from 'rxjs';
-import { IMyVideosParams, IMyVideosResponse } from '../interfaces';
+import {
+  ILoadUserVideosParams,
+  IUploadVideo,
+  IUploadVideoResponse,
+  IUserVideosResponse,
+} from '../interfaces';
 import { Store, select } from '@ngrx/store';
 import {
-  getUserVideos,
-  selectUserVideos,
-  uploadUserVideo,
-  updateUserVideos,
-  selectIsLoading,
+  initUserVideos,
+  getUserVideosState,
+  uploadNewVideo,
+  loadMoreUserVideos,
+  getIsLoadingState,
+  updatePageValue,
+  setLoadingState,
 } from '../store';
 import { VideoProfilePagination } from '../enums';
 
@@ -18,35 +25,40 @@ import { VideoProfilePagination } from '../enums';
 export class VideoService {
   constructor(private videoApiService: VideoApi, private store: Store) {}
 
-  initStoreUserVideos() {
+  loadUserVideosAPI(
+    params: ILoadUserVideosParams,
+  ): Observable<IUserVideosResponse> {
+    return this.videoApiService.loadUserVideos(params);
+  }
+
+  uploadVideoAPI(data: IUploadVideo): Observable<IUploadVideoResponse> {
+    return this.videoApiService.uploadVideo(data);
+  }
+
+  initUserVideos() {
     this.store.dispatch(
-      getUserVideos({
-        page: VideoProfilePagination.startPage,
-        limit: VideoProfilePagination.limit,
-      }),
+      updatePageValue({ page: VideoProfilePagination.startPage }),
     );
+    this.store.dispatch(initUserVideos());
   }
 
-  getUserVideosFromStore() {
-    return this.store.pipe(select(selectUserVideos));
-  }
-  getStoreVideosLoading() {
-    return this.store.pipe(select(selectIsLoading));
+  getUserVideos() {
+    return this.store.pipe(select(getUserVideosState));
   }
 
-  uploadStoreVideo(data: FormData) {
-    this.store.dispatch(uploadUserVideo({ data }));
+  getVideosLoadingStatus() {
+    return this.store.pipe(select(getIsLoadingState));
   }
 
-  updateStoreVideos(videoParams: IMyVideosParams) {
-    return this.store.dispatch(updateUserVideos(videoParams));
+  uploadVideo(data: IUploadVideo) {
+    this.store.dispatch(uploadNewVideo({ data }));
   }
 
-  getMyVideos(videoParams: IMyVideosParams): Observable<IMyVideosResponse> {
-    return this.videoApiService.myVideos(videoParams);
+  loadMoreUserVideos() {
+    return this.store.dispatch(loadMoreUserVideos());
   }
 
-  uploadVideo(data: FormData): Observable<any> {
-    return this.videoApiService.upload(data);
+  setLoadingState(value: boolean) {
+    return this.store.dispatch(setLoadingState({ value }));
   }
 }

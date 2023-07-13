@@ -17,11 +17,13 @@ export class ProfileComponent {
     this.isVideoUploaded = true;
     this.uploadData = file;
   }
+
   onUploadConfirm() {
     this.isVideoUploaded = false;
 
-    this.videoService.uploadStoreVideo(this.uploadData);
+    this.videoService.uploadVideo(this.uploadData);
   }
+
   onUploadCancel() {
     this.isVideoUploaded = false;
   }

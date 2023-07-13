@@ -1,7 +1,12 @@
 import { Injectable } from '@angular/core';
 import { ApiService } from 'src/app/core';
 import { VideoApiPath } from '../enums';
-import { IMyVideosParams, IMyVideosResponse } from '../interfaces';
+import {
+  ILoadUserVideosParams,
+  IUploadVideo,
+  IUploadVideoResponse,
+  IUserVideosResponse,
+} from '../interfaces';
 import { Observable } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
 
@@ -13,15 +18,23 @@ export class VideoApi {
 
   private basePath = VideoApiPath.basicVideoPath;
 
-  public upload(videoData: FormData): Observable<FormData> {
-    return this.apiService.post<FormData>(`${this.basePath}/upload`, videoData);
+  public uploadVideo(data: IUploadVideo): Observable<IUploadVideoResponse> {
+    return this.apiService.post<IUploadVideoResponse>(
+      `${this.basePath}/upload`,
+      data,
+    );
   }
-  public myVideos(videoParams: IMyVideosParams): Observable<IMyVideosResponse> {
-    const queryParams = new HttpParams()
-      .append('page', videoParams.page)
-      .append('limit', videoParams.limit);
 
-    return this.apiService.get<IMyVideosResponse>(
+  public loadUserVideos(
+    params: ILoadUserVideosParams,
+  ): Observable<IUserVideosResponse> {
+    const { page, limit } = params;
+
+    const queryParams = new HttpParams()
+      .append('page', page)
+      .append('limit', limit);
+
+    return this.apiService.get<IUserVideosResponse>(
       `${this.basePath}/my-videos`,
       {
         params: queryParams,
