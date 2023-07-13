@@ -49,7 +49,7 @@ export class SignupComponent {
 
   constructor(private readonly userService: UserService) {}
 
-  isLoading$ = this.userService.isLoading$;
+  isLoading$ = this.userService.isLoadingSelector$;
 
   userFormData: FormData = new FormData();
 

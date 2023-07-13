@@ -25,6 +25,9 @@ import { VideoProfilePagination } from '../enums';
 export class VideoService {
   constructor(private videoApiService: VideoApi, private store: Store) {}
 
+  isLoadingSelector$ = this.store.pipe(select(getIsLoadingState));
+  userVideosSelector$ = this.store.pipe(select(getUserVideosState));
+
   loadUserVideosAPI(
     params: ILoadUserVideosParams,
   ): Observable<IUserVideosResponse> {
@@ -40,14 +43,6 @@ export class VideoService {
       updatePageValue({ page: VideoProfilePagination.startPage }),
     );
     this.store.dispatch(initUserVideos());
-  }
-
-  getUserVideos() {
-    return this.store.pipe(select(getUserVideosState));
-  }
-
-  getVideosLoadingStatus() {
-    return this.store.pipe(select(getIsLoadingState));
   }
 
   uploadVideo(data: IUploadVideo) {

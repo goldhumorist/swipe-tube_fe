@@ -1,37 +1,39 @@
 <div class="profile">
-  <div class="profile__avatar-container">
-    <img
-      class="profile__avatar"
-      src="https://www.befunky.com/images/prismic/5ddfea42-7377-4bef-9ac4-f3bd407d52ab_landing-photo-to-cartoon-img5.jpeg?auto=avif,webp&format=jpg&width=863"
-      alt="avatar image"
-    />
-  </div>
-  <div class="profile__side-container">
-    <div class="profile__info">
-      <p class="profile__username text__body">Profile username</p>
-      <p class="profile__email text__caption">test@gmail.com</p>
+  <ng-container *ngIf="userData$ | async as userData">
+    <div class="profile__avatar-container">
+      <img
+        class="profile__avatar"
+        [src]="getProfileImageUrl(userData.avatarUrlPath)"
+        alt="avatar image"
+      />
     </div>
+    <div class="profile__side-container">
+      <div class="profile__info">
+        <p class="profile__username text__body">{{ userData.username }}</p>
+        <p class="profile__email text__caption">{{ userData.email }}</p>
+      </div>
 
-    <div class="profile__upload">
-      <app-file-upload
-        [uploadText]="'Upload video'"
-        [showCircle]="false"
-        [format]="'video'"
-        [isUploadDisabled]="isVideoUploaded"
-        (formDataEmitter)="onVideoUpload($event)"
-      ></app-file-upload>
+      <div class="profile__upload">
+        <app-file-upload
+          [uploadText]="'Upload video'"
+          [showCircle]="false"
+          [format]="'video'"
+          [isUploadDisabled]="isVideoUploaded"
+          (formDataEmitter)="onVideoUpload($event)"
+        ></app-file-upload>
 
-      <div class="confirm__container" *ngIf="isVideoUploaded">
-        <button (click)="onUploadConfirm()" class="confirm__upload-btn">
-          Upload
-        </button>
+        <div class="confirm__container" *ngIf="isVideoUploaded">
+          <button (click)="onUploadConfirm()" class="confirm__upload-btn">
+            Upload
+          </button>
 
-        <button (click)="onUploadCancel()" class="confirm__cancel-btn">
-          Cancel
-        </button>
+          <button (click)="onUploadCancel()" class="confirm__cancel-btn">
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
-  </div>
+  </ng-container>
 </div>
 
 <div class="tabs-categories-wrapper">

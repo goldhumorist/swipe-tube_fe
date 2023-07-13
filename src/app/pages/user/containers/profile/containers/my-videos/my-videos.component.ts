@@ -19,7 +19,7 @@ import { Subject, takeUntil } from 'rxjs';
 export class MyVideosComponent implements OnInit, OnDestroy {
   public videoList: IVideo[];
 
-  public isLoading$ = this.videosService.getVideosLoadingStatus();
+  public isLoading$ = this.videosService.isLoadingSelector$;
   private destroySubject$ = new Subject();
 
   constructor(
@@ -30,8 +30,7 @@ export class MyVideosComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.videosService.initUserVideos();
 
-    this.videosService
-      .getUserVideos()
+    this.videosService.userVideosSelector$
       .pipe(takeUntil(this.destroySubject$))
       .subscribe({
         next: videos => {

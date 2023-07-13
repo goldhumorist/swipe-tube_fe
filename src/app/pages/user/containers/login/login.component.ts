@@ -35,7 +35,7 @@ export class LoginComponent {
 
   constructor(private readonly userService: UserService) {}
 
-  isLoading$ = this.userService.isLoading$;
+  isLoading$ = this.userService.isLoadingSelector$;
 
   signupPageLink = PATH_TO_SIGNUP;
 
