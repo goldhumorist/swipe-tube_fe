@@ -9,7 +9,7 @@
     >
       <ng-container *ngIf="isLastElement(index); else restVideos">
         <app-video-item
-          (selectVideoEmitter)="runVideo($event)"
+          (selectVideoEmitter)="openVideo($event)"
           [videoItem]="video"
           appInfinitePagination
           (visibilityChange)="onIntersection($event)"
@@ -18,7 +18,7 @@
 
       <ng-template #restVideos>
         <app-video-item
-          (selectVideoEmitter)="runVideo($event)"
+          (selectVideoEmitter)="openVideo($event)"
           [videoItem]="video"
         ></app-video-item>
       </ng-template>

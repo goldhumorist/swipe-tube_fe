@@ -13,7 +13,6 @@ export class VideoListComponent {
   isVideoSelected: boolean;
 
   @Input() videoList: IVideo[];
-
   @Input() isLoading$: Observable<boolean>;
 
   @Output() loadNewVideosEmitter = new EventEmitter<string>();
@@ -26,10 +25,11 @@ export class VideoListComponent {
     return index === this.videoList?.length - 1;
   }
 
-  runVideo(video: IVideo) {
+  openVideo(video: IVideo) {
     this.selectedVideo = video;
     this.isVideoSelected = true;
   }
+
   onModalClose() {
     this.selectedVideo = {
       videoUrlPath: '',

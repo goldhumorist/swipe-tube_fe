@@ -10,12 +10,13 @@ import { faArchive, faHeart } from '@fortawesome/free-solid-svg-icons';
 })
 export class VideoItemComponent {
   @Input() videoItem: IVideo;
+
   @Output() selectVideoEmitter = new EventEmitter<IVideo>();
 
   public faArchive = faArchive;
   public faHeart = faHeart;
 
-  formThumbnailPath = (videoThumbnailKey: string): string =>
+  formThumbnailUrl = (videoThumbnailKey: string): string =>
     `${environment.baseContentUrl}/${videoThumbnailKey}`;
 
   onVideoClick(videoItem: IVideo) {

@@ -20,13 +20,18 @@ export class ModalPlayerComponent {
 
   public faClose = faClose;
 
-  formVideoPath = (videoKey: string): string =>
+  formVideoUrl = (videoKey: string): string =>
     `${environment.baseContentUrl}/${videoKey}`;
 
   @HostListener('document:keydown.escape', ['$event']) onKeydownHandler() {
     this.modalCloseEmitter.emit();
   }
-  onCrossClick() {
+
+  onClose() {
     this.modalCloseEmitter.emit();
+  }
+
+  onVideoClick(event: MouseEvent) {
+    event.stopPropagation();
   }
 }

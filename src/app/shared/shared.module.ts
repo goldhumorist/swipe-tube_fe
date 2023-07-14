@@ -10,8 +10,7 @@ import {
   FileUploadComponent,
 } from './components';
 import { UiModule } from './ui';
-import { DropUploadDirective } from './directives/drop-upload-directive';
-import { InfinitePaginationDirective } from './directives/infinite-pagination-directive';
+import { DropUploadDirective, InfinitePaginationDirective } from './directives';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
