@@ -1,0 +1,39 @@
+<div class="video__container">
+  <ul class="video__list">
+    <ng-container
+      *ngFor="
+        let video of videoList as videoList;
+        index as index;
+        trackBy: trackByFn
+      "
+    >
+      <ng-container *ngIf="isLastElement(index); else restVideos">
+        <app-video-item
+          (selectVideoEmitter)="openVideo($event)"
+          [videoItem]="video"
+          appInfinitePagination
+          (visibilityChange)="onIntersection($event)"
+        ></app-video-item>
+      </ng-container>
+
+      <ng-template #restVideos>
+        <app-video-item
+          (selectVideoEmitter)="openVideo($event)"
+          [videoItem]="video"
+        ></app-video-item>
+      </ng-template>
+    </ng-container>
+  </ul>
+
+  <ng-container *ngIf="isLoading$ | async">
+    <div class="video__loader">
+      <app-loader></app-loader>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="isVideoSelected">
+    <app-modal-player
+      [videoItem]="selectedVideo"
+      (modalCloseEmitter)="onModalClose()"
+    ></app-modal-player>
+  </ng-container>
+</div>

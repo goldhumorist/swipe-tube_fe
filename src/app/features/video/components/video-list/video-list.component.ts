@@ -1,8 +1,6 @@
-import { IVideo } from './../../../../../../../features/video/interfaces/interfaces';
+import { IVideo } from '../../interfaces/interfaces';
 import { Component, Input, EventEmitter, Output } from '@angular/core';
 import { Observable } from 'rxjs';
-import { faArchive, faHeart } from '@fortawesome/free-solid-svg-icons';
-import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-video-list',
@@ -10,17 +8,14 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./video-list.component.scss'],
 })
 export class VideoListComponent {
-  public faArchive = faArchive;
-  public faHeart = faHeart;
+  selectedVideo: IVideo;
+
+  isVideoSelected: boolean;
 
   @Input() videoList: IVideo[];
-
   @Input() isLoading$: Observable<boolean>;
 
   @Output() loadNewVideosEmitter = new EventEmitter<string>();
-
-  formThumbnailPath = (videoThumbnailKey: string): string =>
-    `${environment.baseContentUrl}/${videoThumbnailKey}`;
 
   onIntersection = (status: string) => this.loadNewVideosEmitter.emit(status);
 
@@ -28,5 +23,19 @@ export class VideoListComponent {
 
   isLastElement(index: number): boolean {
     return index === this.videoList?.length - 1;
+  }
+
+  openVideo(video: IVideo) {
+    this.selectedVideo = video;
+    this.isVideoSelected = true;
+  }
+
+  onModalClose() {
+    this.selectedVideo = {
+      videoUrlPath: '',
+      thumbnailUrlPath: '',
+      description: '',
+    };
+    this.isVideoSelected = false;
   }
 }

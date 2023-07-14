@@ -7,10 +7,11 @@ import {
   DynamicInputComponent,
   DynamicCheckboxComponent,
   DynamicFieldComponent,
+  FileUploadComponent,
 } from './components';
 import { UiModule } from './ui';
-import { DropUploadDirective } from './directives/drop-upload-directive';
-import { InfinitePaginationDirective } from './directives/infinite-pagination-directive';
+import { DropUploadDirective, InfinitePaginationDirective } from './directives';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -20,13 +21,15 @@ import { InfinitePaginationDirective } from './directives/infinite-pagination-di
     DynamicErrorComponent,
     DropUploadDirective,
     InfinitePaginationDirective,
+    FileUploadComponent,
     DynamicFieldComponent,
   ],
-  imports: [CommonModule, ReactiveFormsModule, UiModule],
+  imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule, UiModule],
   exports: [
     DynamicFormComponent,
     UiModule,
     DropUploadDirective,
+    FileUploadComponent,
     InfinitePaginationDirective,
   ],
 })

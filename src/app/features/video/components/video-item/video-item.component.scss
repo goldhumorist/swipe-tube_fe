@@ -1,0 +1,19 @@
+.video {
+  &__info {
+    @apply absolute bottom-0 flex justify-evenly w-full
+        py-2 bg-bg-secondary;
+  }
+  &__image {
+    @apply w-full h-full object-cover;
+  }
+}
+:host {
+  @apply relative max-h-[300px] sm:max-h-[400px] md:max-h-[225px] col-span-2 lg:col-span-3 rounded-lg rounded-t-none
+         overflow-hidden hover:shadow-xl hover:scale-[102%] transition-all;
+}
+.info {
+  @apply flex items-center md:text-base;
+  &__icon {
+    @apply pr-1 md:pr-2;
+  }
+}

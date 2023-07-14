@@ -1,12 +1,16 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { UserFormComponent } from './components';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import {
+  ModalPlayerComponent,
+  VideoItemComponent,
+  VideoListComponent,
+} from './components';
 import { SharedModule } from 'src/app/shared';
 
 @NgModule({
-  declarations: [UserFormComponent],
+  declarations: [VideoItemComponent, VideoListComponent, ModalPlayerComponent],
   imports: [CommonModule, FontAwesomeModule, SharedModule],
-  exports: [UserFormComponent],
+  exports: [VideoItemComponent, VideoListComponent, ModalPlayerComponent],
 })
-export class UserModule {}
+export class VideoModule {}

@@ -1,0 +1,17 @@
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<app-modal-overlay (click)="onClose()">
+  <div class="modal" (click)="onVideoClick($event)">
+    <fa-icon
+      [icon]="faClose"
+      (click)="onClose()"
+      class="modal__close fa-xl"
+      tabindex="0"
+    />
+
+    <video class="modal__video" controls autoplay>
+      <source [src]="formVideoUrl(videoItem.videoUrlPath)" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </div>
+</app-modal-overlay>
