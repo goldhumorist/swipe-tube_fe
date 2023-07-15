@@ -57,7 +57,10 @@ export class SwipeVideoItemComponent implements OnChanges, AfterViewInit {
   }
 
   private playVideo() {
-    this.swipeVideo?.nativeElement?.play();
+    if (this.swipeVideo?.nativeElement) {
+      this.swipeVideo.nativeElement.volume = 0.2;
+      this.swipeVideo.nativeElement.play();
+    }
   }
 
   private stopVideo() {
