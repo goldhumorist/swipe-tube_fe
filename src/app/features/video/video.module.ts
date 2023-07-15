@@ -5,12 +5,23 @@ import {
   ModalPlayerComponent,
   VideoItemComponent,
   VideoListComponent,
+  SwipeVideoItemComponent,
 } from './components';
 import { SharedModule } from 'src/app/shared';
 
 @NgModule({
-  declarations: [VideoItemComponent, VideoListComponent, ModalPlayerComponent],
+  declarations: [
+    VideoItemComponent,
+    VideoListComponent,
+    ModalPlayerComponent,
+    SwipeVideoItemComponent,
+  ],
   imports: [CommonModule, FontAwesomeModule, SharedModule],
-  exports: [VideoItemComponent, VideoListComponent, ModalPlayerComponent],
+  exports: [
+    VideoItemComponent,
+    VideoListComponent,
+    ModalPlayerComponent,
+    SwipeVideoItemComponent,
+  ],
 })
 export class VideoModule {}
