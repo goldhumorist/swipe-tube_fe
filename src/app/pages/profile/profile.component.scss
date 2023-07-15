@@ -1,3 +1,9 @@
+.user-profile-layout-wrapper {
+  @apply flex  items-center justify-center pt-6 
+  bg-[url('../../../assets/bg/ellipse_user_mobile_bg.png')]
+  md:bg-[url('../../../assets/bg/ellipse_user_bg.png')] bg-no-repeat bg-top overflow-x-hidden;
+}
+
 .profile {
   @apply w-[100vw] md:w-[75vw] h-[170px] md:h-[200px] flex items-center mb-4 p-4 sm:p-8 py-[30px] md:rounded-xl bg-bg-secondary backdrop-blur-lg
     shadow-container;

@@ -1,4 +1,4 @@
-import { DEFAULT_PROFILE_IMAGE_URL } from './../../../../features/user/enums/enums';
+import { DEFAULT_PROFILE_IMAGE_URL } from './../../features/user/enums/enums';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { UserService } from 'src/app/features/user';
 import { VideoService } from 'src/app/features/video';
