@@ -1,0 +1,24 @@
+<div class="navigation" [ngClass]="{ 'navigation--open': isMenuOpen }">
+  <ul class="navigation__list text__body">
+    <div>
+      <li
+        class="navigation__item"
+        [routerLink]="swipePath"
+        routerLinkActive="navigation__item--active"
+        [routerLinkActiveOptions]="{ exact: true }"
+      >
+        <span>Swipes</span>
+      </li>
+      <li
+        class="navigation__item"
+        [routerLink]="profilePath"
+        routerLinkActive="navigation__item--active"
+      >
+        <span> Profile </span>
+      </li>
+    </div>
+    <li [routerLink]="logoutPath" class="navigation__item">
+      <span>Log out</span>
+    </li>
+  </ul>
+</div>

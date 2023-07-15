@@ -7,6 +7,10 @@ import { LoaderComponent } from './loader/loader.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoadingOverlayComponent } from './loading-overlay/loading-overlay.component';
 import { ModalOverlayComponent } from './modal-overlay/modal-overlay.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { BurgerMenuComponent } from './burger-menu/burger-menu.component';
+import { NavigationComponent } from './burger-menu/navigation/navigation.component';
+import { HeaderComponent } from './header/header.component';
 
 @NgModule({
   declarations: [
@@ -16,8 +20,11 @@ import { ModalOverlayComponent } from './modal-overlay/modal-overlay.component';
     FooterComponent,
     LoadingOverlayComponent,
     ModalOverlayComponent,
+    BurgerMenuComponent,
+    NavigationComponent,
+    HeaderComponent,
   ],
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FontAwesomeModule],
   exports: [
     ButtonComponent,
     NavigationLinkComponent,
@@ -25,6 +32,8 @@ import { ModalOverlayComponent } from './modal-overlay/modal-overlay.component';
     FooterComponent,
     ModalOverlayComponent,
     LoadingOverlayComponent,
+    BurgerMenuComponent,
+    HeaderComponent,
   ],
 })
 export class UiModule {}

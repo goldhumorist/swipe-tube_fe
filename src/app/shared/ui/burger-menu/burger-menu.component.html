@@ -1,0 +1,9 @@
+<div class="burger">
+  <fa-icon
+    class="burger__icon fa-xl"
+    [icon]="faBars"
+    (click)="toggleMenu()"
+  ></fa-icon>
+</div>
+
+<app-navigation [isMenuOpen]="isMenuOpen"></app-navigation>

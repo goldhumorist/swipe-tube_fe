@@ -1,0 +1,7 @@
+.burger {
+  @apply z-10 pl-3;
+
+  &__icon {
+    @apply block w-8 text-white cursor-pointer hover:scale-105 transition-transform;
+  }
+}
