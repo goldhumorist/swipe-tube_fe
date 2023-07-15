@@ -4,14 +4,12 @@ import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  EventEmitter,
   Input,
   OnChanges,
-  Output,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
-import { IVideo, ISwipeVideo } from 'src/app/features/video/interfaces';
+import { ISwipeVideo } from 'src/app/features/video/interfaces';
 import { environment } from 'src/environments/environment';
 
 @Component({
