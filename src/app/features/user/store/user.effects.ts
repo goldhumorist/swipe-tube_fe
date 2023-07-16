@@ -1,10 +1,15 @@
-import { AppRouteEnum } from './../../../core/enums/app-route.enum';
+import {
+  AppRouteEnum,
+  UserRouteEnum,
+} from './../../../core/enums/app-route.enum';
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import {
   login,
   loginFailed,
   loginSuccess,
+  logout,
+  logoutSuccess,
   signup,
   signupFailed,
   signupSuccess,
@@ -60,6 +65,23 @@ export class UserEffects {
           }),
         ),
       ),
+    );
+  });
+
+  logout$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(logout),
+      switchMap(() => {
+        this.localStorage.removeAccessToken();
+
+        this.router.navigate([`${AppRouteEnum.User}/${UserRouteEnum.Login}`]);
+
+        this.notifier.showSuccessNotification(
+          'You have successfully logged out',
+        );
+
+        return of(logoutSuccess());
+      }),
     );
   });
 

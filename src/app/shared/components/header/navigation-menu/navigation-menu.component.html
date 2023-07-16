@@ -1,3 +1,13 @@
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
+<div class="burger">
+  <fa-icon
+    class="burger__icon fa-xl"
+    [icon]="faBars"
+    (click)="toggleMenu()"
+  ></fa-icon>
+</div>
+
 <div class="navigation" [ngClass]="{ 'navigation--open': isMenuOpen }">
   <ul class="navigation__list text__body">
     <div>
@@ -17,7 +27,7 @@
         <span> Profile </span>
       </li>
     </div>
-    <li [routerLink]="logoutPath" class="navigation__item">
+    <li (click)="logoutHandler()" class="navigation__item">
       <span>Log out</span>
     </li>
   </ul>

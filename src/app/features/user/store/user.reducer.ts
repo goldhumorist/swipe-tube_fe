@@ -5,6 +5,8 @@ import {
   login,
   loginFailed,
   loginSuccess,
+  logout,
+  logoutSuccess,
   signup,
   signupFailed,
   signupSuccess,
@@ -59,4 +61,19 @@ export const userReducer = createReducer(
       isLoading: false,
     }),
   ),
+
+  on(logout, state => ({
+    ...state,
+    isLoading: true,
+  })),
+
+  on(logoutSuccess, () => ({
+    isLoading: false,
+    userData: {
+      username: '',
+      email: '',
+      avatarUrlPath: '',
+    },
+    errorMessage: '',
+  })),
 );

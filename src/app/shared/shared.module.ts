@@ -8,10 +8,13 @@ import {
   DynamicCheckboxComponent,
   DynamicFieldComponent,
   FileUploadComponent,
+  HeaderComponent,
+  NavigationMenuComponent,
 } from './components';
 import { UiModule } from './ui';
 import { DropUploadDirective, InfinitePaginationDirective } from './directives';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -23,14 +26,23 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
     InfinitePaginationDirective,
     FileUploadComponent,
     DynamicFieldComponent,
+    NavigationMenuComponent,
+    HeaderComponent,
   ],
-  imports: [CommonModule, ReactiveFormsModule, FontAwesomeModule, UiModule],
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FontAwesomeModule,
+    UiModule,
+    RouterModule,
+  ],
   exports: [
     DynamicFormComponent,
     UiModule,
     DropUploadDirective,
     FileUploadComponent,
     InfinitePaginationDirective,
+    HeaderComponent,
   ],
 })
 export class SharedModule {}
