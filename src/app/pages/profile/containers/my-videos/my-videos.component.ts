@@ -1,6 +1,3 @@
-import { IntersectionStatus } from 'src/app/shared/directives/service/from-intersection-observer';
-import { IVideo } from './../../../../../../features/video/interfaces/interfaces';
-import { VideoService } from './../../../../../../features/video/service/video.service';
 import {
   Component,
   OnInit,
@@ -9,6 +6,9 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
+import { VideoService } from 'src/app/features/video';
+import { IVideo } from 'src/app/features/video/interfaces';
+import { IntersectionStatus } from 'src/app/shared/directives/service/from-intersection-observer';
 
 @Component({
   selector: 'app-my-videos',

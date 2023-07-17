@@ -1,0 +1,29 @@
+<div class="video">
+  <ul class="video__list" #swipeVideosList>
+    <ng-container *ngFor="let swipeVideo of swipeVideos; index as index">
+      <ng-container
+        *ngIf="isElementListenerForLoadMoreData(index); else restVideos"
+      >
+        <app-swipe-video-item
+          appInfinitePagination
+          (visibilityChange)="loadMoreSwipeVideos($event)"
+          [isPlaying]="swipeVideo.isPlaying"
+          [swipeVideoItem]="swipeVideo"
+        ></app-swipe-video-item>
+      </ng-container>
+
+      <ng-template #restVideos>
+        <app-swipe-video-item
+          [isPlaying]="swipeVideo.isPlaying"
+          [swipeVideoItem]="swipeVideo"
+        ></app-swipe-video-item>
+      </ng-template>
+    </ng-container>
+  </ul>
+
+  <ng-container *ngIf="isLoading">
+    <div class="loader__container">
+      <app-loader></app-loader>
+    </div>
+  </ng-container>
+</div>

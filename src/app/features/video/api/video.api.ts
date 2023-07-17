@@ -3,6 +3,8 @@ import { ApiService } from 'src/app/core';
 import { VideoApiPath } from '../enums';
 import {
   ILoadUserVideosParams,
+  ISwipeVideosParams,
+  ISwipeVideosResponse,
   IUploadVideo,
   IUploadVideoResponse,
   IUserVideosResponse,
@@ -30,12 +32,32 @@ export class VideoApi {
   ): Observable<IUserVideosResponse> {
     const { page, limit } = params;
 
-    const queryParams = new HttpParams()
-      .append('page', page)
-      .append('limit', limit);
+    const queryParams = new HttpParams().appendAll({
+      page,
+      limit,
+    });
 
     return this.apiService.get<IUserVideosResponse>(
       `${this.basePath}/my-videos`,
+      {
+        params: queryParams,
+      },
+    );
+  }
+
+  public loadSwipeVideos(
+    params: ISwipeVideosParams,
+  ): Observable<ISwipeVideosResponse> {
+    const { page, mainLimit, itemLimit } = params;
+
+    const queryParams = new HttpParams().appendAll({
+      page,
+      mainLimit,
+      itemLimit,
+    });
+
+    return this.apiService.get<ISwipeVideosResponse>(
+      `${this.basePath}/swipe-videos`,
       {
         params: queryParams,
       },

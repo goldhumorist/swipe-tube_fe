@@ -1,0 +1,48 @@
+<app-header> </app-header>
+
+<div class="user-profile-layout-wrapper">
+  <div>
+    <div class="profile">
+      <ng-container *ngIf="userData$ | async as userData">
+        <div class="profile__avatar-container">
+          <img
+            class="profile__avatar"
+            [src]="getProfileImageUrl(userData.avatarUrlPath)"
+            alt="avatar image"
+          />
+        </div>
+        <div class="profile__side-container">
+          <div class="profile__info">
+            <p class="profile__username text__body">{{ userData.username }}</p>
+            <p class="profile__email text__caption">{{ userData.email }}</p>
+          </div>
+
+          <div class="profile__upload">
+            <app-file-upload
+              [uploadText]="'Upload video'"
+              [showCircle]="false"
+              [format]="'video'"
+              [isUploadDisabled]="isVideoUploaded"
+              (formDataEmitter)="onVideoUpload($event)"
+            ></app-file-upload>
+
+            <div class="confirm__container" *ngIf="isVideoUploaded">
+              <button (click)="onUploadConfirm()" class="confirm__upload-btn">
+                Upload
+              </button>
+
+              <button (click)="onUploadCancel()" class="confirm__cancel-btn">
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+
+    <div class="tabs-categories-wrapper">
+      <app-profile-tabs></app-profile-tabs>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+</div>

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ILoginData, ISignupData } from '../interfaces';
 import { Store, select } from '@ngrx/store';
 import { getIsLoading, getUserData } from '../store/user.selector';
-import { login, signup } from '../store/user.actions';
+import { login, logout, signup } from '../store/user.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -19,5 +19,9 @@ export class UserService {
 
   login(data: ILoginData): void {
     this.store.dispatch(login(data));
+  }
+
+  logout(): void {
+    this.store.dispatch(logout());
   }
 }

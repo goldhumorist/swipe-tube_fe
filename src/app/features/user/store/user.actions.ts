@@ -40,6 +40,13 @@ export const signupFailed = createAction(
   props<{ errorMessage: string }>(),
 );
 
+// logout
+export const logout = createAction(`${FEATURE_NAME.USER} logout`);
+
+export const logoutSuccess = createAction(
+  `${FEATURE_NAME.USER} logout success`,
+);
+
 // Checking user access status
 export const checkAccess = createAction(`${FEATURE_NAME.USER} check access`);
 

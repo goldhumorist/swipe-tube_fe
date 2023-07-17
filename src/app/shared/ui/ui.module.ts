@@ -7,6 +7,7 @@ import { LoaderComponent } from './loader/loader.component';
 import { FooterComponent } from './footer/footer.component';
 import { LoadingOverlayComponent } from './loading-overlay/loading-overlay.component';
 import { ModalOverlayComponent } from './modal-overlay/modal-overlay.component';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,7 @@ import { ModalOverlayComponent } from './modal-overlay/modal-overlay.component';
     LoadingOverlayComponent,
     ModalOverlayComponent,
   ],
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, FontAwesomeModule],
   exports: [
     ButtonComponent,
     NavigationLinkComponent,

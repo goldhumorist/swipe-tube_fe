@@ -1,0 +1,9 @@
+.video {
+  &__list {
+    @apply w-screen mt-16 flex items-center flex-col;
+  }
+}
+
+.loader__container {
+  @apply flex justify-center items-center pt-4;
+}

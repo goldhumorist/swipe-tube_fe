@@ -1,9 +1,9 @@
+import { Component } from '@angular/core';
+import { faArchive, faHeart } from '@fortawesome/free-solid-svg-icons';
 import {
   PATH_TO_PROFILE_LIKED_VIDEOS,
   PATH_TO_PROFILE_MY_VIDEOS,
-} from './../../../../../../core/enums/app-route.enum';
-import { Component } from '@angular/core';
-import { faArchive, faHeart } from '@fortawesome/free-solid-svg-icons';
+} from 'src/app/core/enums/app-route.enum';
 
 @Component({
   selector: 'app-profile-tabs',
