@@ -11,7 +11,7 @@
 }
 
 .navigation {
-  @apply shadow-xl fixed w-screen bottom-0 top-10 opacity-0 -translate-x-10 transition-all bg-white
+  @apply shadow-xl fixed w-screen bottom-0 top-10 opacity-0 invisible -translate-x-10 transition-all bg-white
   sm:w-fit;
 
   &__list {
@@ -28,9 +28,9 @@
 }
 
 .navigation--open {
-  @apply opacity-100 translate-x-0;
+  @apply opacity-100 translate-x-0 visible;
 }
 
 .overlay {
-  @apply absolute top-0 left-[200px] w-screen h-full bg-black bg-opacity-20;
+  @apply hidden md:block absolute top-0 left-[200px] w-screen h-full bg-black bg-opacity-30 backdrop-blur-sm;
 }

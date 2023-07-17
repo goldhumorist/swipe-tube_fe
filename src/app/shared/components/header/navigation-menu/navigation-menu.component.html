@@ -23,6 +23,7 @@
     <div>
       <li
         class="navigation__item"
+        (click)="toggleMenu()"
         [routerLink]="swipePath"
         routerLinkActive="navigation__item--active"
         [routerLinkActiveOptions]="{ exact: true }"
@@ -31,10 +32,19 @@
       </li>
       <li
         class="navigation__item"
+        (click)="toggleMenu()"
         [routerLink]="profilePath"
         routerLinkActive="navigation__item--active"
       >
         <span> Profile </span>
+      </li>
+      <li
+        class="navigation__item"
+        (click)="toggleMenu()"
+        [routerLink]="recordPath"
+        routerLinkActive="navigation__item--active"
+      >
+        <span> Record </span>
       </li>
     </div>
     <li (click)="logoutHandler()" class="navigation__item">

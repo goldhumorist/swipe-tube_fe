@@ -14,4 +14,8 @@ export class NotificationService {
   showFailedNotification = (message: string) => {
     this.notifier.notify('error', message);
   };
+
+  showWarningNotification = (message: string) => {
+    this.notifier.notify('warning', message);
+  };
 }

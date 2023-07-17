@@ -18,6 +18,7 @@ export class NavigationMenuComponent {
 
   swipePath = `/${AppRouteEnum.Video}/${VideoRouteEnum.MainVideos}`;
   profilePath = `/${AppRouteEnum.UserProfile}`;
+  recordPath = `/${AppRouteEnum.Video}/${VideoRouteEnum.Record}`;
 
   constructor(private userService: UserService) {}
 

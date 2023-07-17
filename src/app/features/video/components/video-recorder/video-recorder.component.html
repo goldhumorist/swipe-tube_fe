@@ -1,0 +1,28 @@
+<app-loader
+  class="recorder__loader"
+  *ngIf="isCameraLoading$ | async"
+></app-loader>
+<video
+  poster="../../../../../assets/images/no_cameras_found.png"
+  class="recorder__video"
+  [ngClass]="isRecording ? 'recorder__video--recording' : ''"
+  #video
+  autoplay
+></video>
+<div class="recorder__controls">
+  <app-button
+    (btnClick)="toggleCamera()"
+    [text]="'Turn on/off camera'"
+  ></app-button>
+  <div class="recorder__controls-state">
+    <app-button
+      (btnClick)="startRecording()"
+      [text]="'Start Recording'"
+    ></app-button>
+    <app-button
+      [isDisabled]="!isRecording"
+      (btnClick)="stopRecording()"
+      [text]="'Stop Recording'"
+    ></app-button>
+  </div>
+</div>
