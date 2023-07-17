@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { faBars } from '@fortawesome/free-solid-svg-icons';
+import { faBars, faXmark } from '@fortawesome/free-solid-svg-icons';
 import {
   AppRouteEnum,
   VideoRouteEnum,
@@ -13,6 +13,7 @@ import { UserService } from 'src/app/features/user';
 })
 export class NavigationMenuComponent {
   public faBars = faBars;
+  public faXmark = faXmark;
   public isMenuOpen = false;
 
   swipePath = `/${AppRouteEnum.Video}/${VideoRouteEnum.MainVideos}`;

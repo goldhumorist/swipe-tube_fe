@@ -4,6 +4,10 @@
   &__icon {
     @apply block w-8 text-white cursor-pointer hover:scale-105 transition-transform;
   }
+
+  &__icon--cross {
+    @apply block w-8 text-white cursor-pointer hover:scale-105 transition-transform;
+  }
 }
 
 .navigation {
@@ -25,4 +29,8 @@
 
 .navigation--open {
   @apply opacity-100 translate-x-0;
+}
+
+.overlay {
+  @apply absolute top-0 left-[200px] w-screen h-full bg-black bg-opacity-20;
 }

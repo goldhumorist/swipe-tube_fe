@@ -1,11 +1,21 @@
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <div class="burger">
-  <fa-icon
-    class="burger__icon fa-xl"
-    [icon]="faBars"
-    (click)="toggleMenu()"
-  ></fa-icon>
+  <ng-container *ngIf="isMenuOpen; else burgerIcon">
+    <fa-icon
+      class="burger__icon--cross fa-xl"
+      [icon]="faXmark"
+      (click)="toggleMenu()"
+    ></fa-icon>
+  </ng-container>
+
+  <ng-template #burgerIcon>
+    <fa-icon
+      class="burger__icon fa-xl"
+      [icon]="faBars"
+      (click)="toggleMenu()"
+    ></fa-icon>
+  </ng-template>
 </div>
 
 <div class="navigation" [ngClass]="{ 'navigation--open': isMenuOpen }">
@@ -31,4 +41,7 @@
       <span>Log out</span>
     </li>
   </ul>
+  <ng-container *ngIf="isMenuOpen">
+    <div class="overlay" (click)="toggleMenu()"></div>
+  </ng-container>
 </div>

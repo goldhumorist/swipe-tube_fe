@@ -1,7 +1,8 @@
 .modal {
-  @apply relative flex justify-center items-center w-full md:w-[425px] 2xl:w-[450px];
+  @apply relative flex justify-center items-center w-[80vw] md:w-full max-w-[446px] h-[84vh] 
+  rounded-xl bg-black bg-opacity-80 backdrop-blur-md;
   &__video {
-    @apply md:static md:w-fit md:h-fit;
+    @apply md:static md:w-fit md:h-fit rounded-xl;
   }
   &__close {
     @apply absolute z-10 top-[5px] right-[5px] sm:top-[-35px] sm:right-[35px] md:right-[-25px] md:top-[-25px] text-white cursor-pointer hover:scale-105 transition-transform;
