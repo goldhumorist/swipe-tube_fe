@@ -1,10 +1,19 @@
+import {
+  MaxRecordingVideoDuration,
+  MaxVideoDurationText,
+  MinRecordingVideoDuration,
+  MinRecordingVideoDurationText,
+} from './../../enums';
 import { Subject } from 'rxjs';
 import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
   Output,
   ViewChild,
+  OnDestroy,
 } from '@angular/core';
 import { NotificationService } from 'src/app/core';
 
@@ -12,112 +21,154 @@ import { NotificationService } from 'src/app/core';
   selector: 'app-video-recorder',
   templateUrl: './video-recorder.component.html',
   styleUrls: ['./video-recorder.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class VideoRecorderComponent {
-  @ViewChild('video') videoElement: ElementRef;
-
-  isCameraLoading$ = new Subject<boolean>();
-
-  isCameraOpen = false;
-
-  isRecording = false;
-
+export class VideoRecorderComponent implements OnDestroy {
   @Output() videoEmitter = new EventEmitter<Blob>();
 
-  constructor(private notifier: NotificationService) {}
+  @ViewChild('video') videoElement: ElementRef;
+
+  recordingParams = {
+    isCameraOpen: false,
+    isStartRecordingAvailable: false,
+    isRecording: false,
+    isStopRecordingAvailable: false,
+    isCameraLoading$: new Subject<boolean>(),
+  };
+  maxVideoDurationText = MaxVideoDurationText;
+  maxVideoDurationTimeout: ReturnType<typeof setTimeout>;
+  minVideoDurationText = MinRecordingVideoDurationText;
+
+  recordedVideoUrl: string | null;
+  recordedVideoBlob: Blob | null;
 
   mediaRecorder: MediaRecorder;
-
   videoChunks: Blob[] = [];
 
-  toggleCamera() {
-    this.isCameraLoading$.next(true);
+  constructor(
+    private notifier: NotificationService,
+    private cd: ChangeDetectorRef,
+  ) {}
 
-    if (!this.isCameraOpen) {
-      navigator.mediaDevices
-        .getUserMedia({ video: true })
-        .then(stream => {
-          this.videoElement.nativeElement.srcObject = stream;
-
-          this.isCameraOpen = true;
-        })
-        .catch(() => {
-          this.notifier.showFailedNotification('Error accessing camera');
-        })
-        .finally(() => {
-          this.isCameraLoading$.next(false);
-        });
-    } else {
+  async toggleCamera() {
+    if (this.recordingParams.isCameraOpen) {
       this.resetCameraFlow();
+      return;
+    }
 
-      this.isCameraLoading$.next(false);
+    this.recordingParams.isCameraLoading$.next(true);
+
+    try {
+      const stream = await navigator.mediaDevices.getUserMedia({
+        video: true,
+        audio: true,
+      });
+
+      this.videoElement.nativeElement.srcObject = stream;
+
+      this.recordingParams.isCameraOpen = true;
+      this.recordingParams.isStartRecordingAvailable = true;
+    } catch (error) {
+      this.notifier.showFailedNotification('Error accessing camera');
+    } finally {
+      this.recordingParams.isCameraLoading$.next(false);
     }
   }
 
   startRecording() {
-    if (this.isCameraOpen) {
-      const videoStream = this.videoElement.nativeElement.srcObject;
+    if (this.recordingParams.isStartRecordingAvailable) {
+      this.recordingParams.isStartRecordingAvailable = false;
 
+      const videoStream = this.videoElement.nativeElement.srcObject;
       this.mediaRecorder = new MediaRecorder(videoStream);
 
       this.mediaRecorder.addEventListener(
         'dataavailable',
-        this.mediaStartCb.bind(this),
+        this.recordingStartCallback.bind(this),
       );
 
-      this.mediaRecorder.addEventListener('stop', this.mediaStopCb.bind(this));
+      this.mediaRecorder.addEventListener(
+        'stop',
+        this.recordingStopCallback.bind(this),
+      );
 
       this.mediaRecorder.start();
+      this.recordingParams.isRecording = true;
 
-      this.isRecording = true;
-    } else {
-      this.notifier.showWarningNotification('Turn on your camera please ;)');
+      this.maxVideoDurationTimeout = setTimeout(() => {
+        this.stopRecording();
+
+        this.notifier.showWarningNotification(
+          `Please be attentive max video duration is - ${this.maxVideoDurationText}`,
+        );
+      }, MaxRecordingVideoDuration);
+
+      setTimeout(() => {
+        this.recordingParams.isStopRecordingAvailable = true;
+        this.cd.detectChanges();
+      }, MinRecordingVideoDuration);
+
+      return;
     }
+    this.notifier.showWarningNotification('Turn on your camera please ;)');
   }
 
   stopRecording() {
     if (this.mediaRecorder) {
-      this.mediaRecorder.stop();
+      clearTimeout(this.maxVideoDurationTimeout);
 
-      this.resetCameraFlow();
+      this.mediaRecorder.stop();
 
       this.mediaRecorder.removeEventListener(
         'dataavailable',
-        this.mediaStartCb.bind(this),
+        this.recordingStartCallback.bind(this),
       );
 
       this.mediaRecorder.removeEventListener(
         'stop',
-        this.mediaStopCb.bind(this),
+        this.recordingStopCallback.bind(this),
       );
+
+      this.recordingParams.isStopRecordingAvailable = false;
     }
   }
 
-  private mediaStartCb(event: BlobEvent) {
-    if (event.data.size > 0) {
-      this.videoChunks.push(event.data);
-    }
+  uploadRecordedVideo() {
+    this.videoEmitter.emit(this.recordedVideoBlob as Blob);
+    this.recordedVideoBlob = null;
+    this.recordedVideoUrl = null;
   }
 
-  private mediaStopCb() {
-    const videoBlob = new Blob(this.videoChunks, { type: 'video/mp4' });
+  deleteRecordedVideo() {
+    this.recordedVideoBlob = null;
+    this.recordedVideoUrl = null;
+  }
 
-    this.videoChunks = [];
+  private recordingStartCallback(event: BlobEvent) {
+    if (event.data.size > 0) this.videoChunks.push(event.data);
+  }
 
-    this.videoEmitter.emit(videoBlob);
+  private recordingStopCallback() {
+    this.recordedVideoBlob = new Blob(this.videoChunks, { type: 'video/mp4' });
+    this.recordedVideoUrl = URL.createObjectURL(this.recordedVideoBlob);
+
+    this.resetCameraFlow();
+    this.cd.detectChanges();
   }
 
   private resetCameraFlow() {
     const stream: MediaStream = this.videoElement?.nativeElement?.srcObject;
-
     const tracks = stream?.getTracks();
+    tracks?.forEach(track => track.stop());
 
-    tracks.forEach(track => track.stop());
-
+    this.videoChunks = [];
     this.videoElement.nativeElement.srcObject = null;
+    this.recordingParams.isCameraOpen = false;
+    this.recordingParams.isStartRecordingAvailable = false;
+    this.recordingParams.isRecording = false;
+  }
 
-    this.isCameraOpen = false;
-
-    this.isRecording = false;
+  ngOnDestroy(): void {
+    this.resetCameraFlow();
   }
 }

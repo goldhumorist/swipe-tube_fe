@@ -1,21 +1,38 @@
-.recorder {
-  &__loader {
-    @apply fixed left-[50%] translate-x-[-50%] translate-y-[50%];
-  }
+.recorder__container {
+  @apply flex;
 
-  &__video {
-    @apply object-cover rounded-xl shadow-container mx-auto h-[70vh] md:h-[74vh] xl:h-[80vh] 2xl:h-[75vh] sm:w-[450px] md:w-[400px] 2xl:w-[450px] mb-3;
-  }
+  .recorder {
+    @apply pr-5;
+    &__loader {
+      @apply fixed left-[50%] translate-x-[-50%] translate-y-[50%];
+    }
 
-  &__video--recording {
-    @apply outline-dashed outline-4 outline-red-400;
-  }
+    &__video {
+      @apply object-cover rounded-xl shadow-container mx-auto h-[70vh] md:h-[70vh] xl:h-[75vh] 2xl:h-[75vh] sm:w-[450px] md:w-[400px] 2xl:w-[450px];
 
-  &__controls {
-    @apply flex justify-between py-3;
-  }
+      &-preview--offset {
+        @apply mb-6;
+      }
+    }
 
-  &__controls-state {
-    @apply flex flex-col gap-3;
+    &__video--recording {
+      @apply outline-dashed outline-4 outline-red-400;
+    }
+
+    &__controls {
+      @apply flex justify-between py-3;
+    }
+
+    &__controls-state {
+      @apply flex flex-col gap-3;
+    }
+
+    &__warning {
+      @apply pl-2 pt-1 text-slate-600;
+
+      &--text {
+        @apply p-0 m-0 pl-2;
+      }
+    }
   }
 }
