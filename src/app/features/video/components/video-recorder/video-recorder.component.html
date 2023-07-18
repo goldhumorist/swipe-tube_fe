@@ -1,0 +1,92 @@
+<div class="recorder__container">
+  <div class="recorder">
+    <app-loader
+      class="recorder__loader"
+      *ngIf="recordingParams.isCameraLoading$ | async"
+    ></app-loader>
+
+    <video
+      poster="../../../../../assets/images/no_cameras_found.png"
+      class="recorder__video"
+      [ngClass]="{
+        'recorder__video--recording': recordingParams.isRecording
+      }"
+      #video
+      autoplay
+    ></video>
+
+    <div class="recorder__warning-container">
+      <fa-icon
+        (click)="toggleWarning()"
+        class="recorder__warning-icon"
+        [icon]="faInfo"
+      ></fa-icon>
+      <div
+        class="recorder__warning"
+        [ngClass]="{ 'recorder__warning--visible': isWarningVisible }"
+      >
+        <span class="text text-white text__small"> * Take attention: </span>
+        <ul class="text__small">
+          <li class="recorder__warning-item">
+            <span class="recorder__warning--text text text__small">
+              max video duration {{ maxVideoDurationText }}
+            </span>
+          </li>
+          <li class="recorder__warning-item">
+            <span class="recorder__warning--text text__small">
+              min video duration {{ minVideoDurationText }}
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="recorder__controls">
+      <app-button
+        [isDisabled]="recordingParams.isRecording"
+        (btnClick)="toggleCamera()"
+        [text]="
+          'Turn' +
+          (recordingParams.isCameraOpen ? ' off' : ' on') +
+          ' the camera'
+        "
+      ></app-button>
+
+      <div class="recorder__controls-state">
+        <app-button
+          [isDisabled]="!recordingParams.isStartRecordingAvailable"
+          (btnClick)="startRecording()"
+          [text]="'Start Recording'"
+        ></app-button>
+
+        <app-button
+          [isDisabled]="!recordingParams.isStopRecordingAvailable"
+          (btnClick)="stopRecording()"
+          [text]="'Stop Recording'"
+        ></app-button>
+      </div>
+    </div>
+  </div>
+  <ng-container *ngIf="recordedVideoUrl">
+    <div class="recorder">
+      <video
+        controls
+        autoplay
+        class="recorder__video recorder__video-preview--offset"
+        [src]="recordedVideoUrl"
+      ></video>
+
+      <div class="recorder__controls">
+        <app-button
+          (btnClick)="uploadRecordedVideo()"
+          text="Upload the video"
+        ></app-button>
+
+        <app-button
+          (btnClick)="deleteRecordedVideo()"
+          text="Delete the video"
+        ></app-button>
+      </div>
+    </div>
+  </ng-container>
+</div>

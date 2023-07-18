@@ -10,6 +10,7 @@ export enum UserProfileRouteEnum {
 
 export enum VideoRouteEnum {
   MainVideos = 'main',
+  Record = 'record',
 }
 
 export enum AppRouteEnum {

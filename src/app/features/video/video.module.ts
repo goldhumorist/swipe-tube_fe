@@ -8,6 +8,7 @@ import {
   SwipeVideoItemComponent,
 } from './components';
 import { SharedModule } from 'src/app/shared';
+import { VideoRecorderComponent } from './components/video-recorder/video-recorder.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { SharedModule } from 'src/app/shared';
     VideoListComponent,
     ModalPlayerComponent,
     SwipeVideoItemComponent,
+    VideoRecorderComponent,
   ],
   imports: [CommonModule, FontAwesomeModule, SharedModule],
   exports: [
@@ -22,6 +24,7 @@ import { SharedModule } from 'src/app/shared';
     VideoListComponent,
     ModalPlayerComponent,
     SwipeVideoItemComponent,
+    VideoRecorderComponent,
   ],
 })
 export class VideoModule {}

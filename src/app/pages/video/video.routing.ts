@@ -14,6 +14,11 @@ const routes: Routes = [
           import('./containers/main').then(m => m.VideoMainModule),
       },
       {
+        path: VideoRouteEnum.Record,
+        loadChildren: () =>
+          import('./containers/record').then(m => m.RecordModule),
+      },
+      {
         path: '**',
         redirectTo: VideoRouteEnum.MainVideos,
       },
