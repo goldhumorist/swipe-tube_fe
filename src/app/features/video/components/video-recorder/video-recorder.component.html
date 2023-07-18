@@ -8,24 +8,38 @@
     <video
       poster="../../../../../assets/images/no_cameras_found.png"
       class="recorder__video"
-      [ngClass]="{ 'recorder__video--recording': recordingParams.isRecording }"
+      [ngClass]="{
+        'recorder__video--recording': recordingParams.isRecording
+      }"
       #video
       autoplay
     ></video>
 
-    <ul class="recorder__warning text__small">
-      <span class="text text__small"> *Take attetion: </span>
-      <li>
-        <span class="recorder__warning--text text text__small">
-          max video duration {{ maxVideoDurationText }}
-        </span>
-      </li>
-      <li>
-        <span class="recorder__warning--text text__small">
-          min video duration {{ minVideoDurationText }}
-        </span>
-      </li>
-    </ul>
+    <div class="recorder__warning-container">
+      <fa-icon
+        (click)="toggleWarning()"
+        class="recorder__warning-icon"
+        [icon]="faInfo"
+      ></fa-icon>
+      <div
+        class="recorder__warning"
+        [ngClass]="{ 'recorder__warning--visible': isWarningVisible }"
+      >
+        <span class="text text-white text__small"> * Take attention: </span>
+        <ul class="text__small">
+          <li class="recorder__warning-item">
+            <span class="recorder__warning--text text text__small">
+              max video duration {{ maxVideoDurationText }}
+            </span>
+          </li>
+          <li class="recorder__warning-item">
+            <span class="recorder__warning--text text__small">
+              min video duration {{ minVideoDurationText }}
+            </span>
+          </li>
+        </ul>
+      </div>
+    </div>
 
     <div class="recorder__controls">
       <app-button
@@ -53,9 +67,8 @@
       </div>
     </div>
   </div>
-
   <ng-container *ngIf="recordedVideoUrl">
-    <div>
+    <div class="recorder">
       <video
         controls
         autoplay

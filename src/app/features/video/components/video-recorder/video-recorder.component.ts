@@ -16,6 +16,7 @@ import {
   OnDestroy,
 } from '@angular/core';
 import { NotificationService } from 'src/app/core';
+import { faInfo } from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-video-recorder',
@@ -45,10 +46,18 @@ export class VideoRecorderComponent implements OnDestroy {
   mediaRecorder: MediaRecorder;
   videoChunks: Blob[] = [];
 
+  faInfo = faInfo;
+
+  isWarningVisible = false;
+
   constructor(
     private notifier: NotificationService,
     private cd: ChangeDetectorRef,
   ) {}
+
+  toggleWarning() {
+    this.isWarningVisible = !this.isWarningVisible;
+  }
 
   async toggleCamera() {
     if (this.recordingParams.isCameraOpen) {
