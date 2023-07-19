@@ -27,6 +27,13 @@ export class VideoApi {
     );
   }
 
+  public addVideoView(videoId: number): Observable<IUploadVideoResponse> {
+    return this.apiService.post<IUploadVideoResponse>(
+      `${this.basePath}/add-video-view`,
+      { videoId },
+    );
+  }
+
   public loadUserVideos(
     params: ILoadUserVideosParams,
   ): Observable<IUserVideosResponse> {

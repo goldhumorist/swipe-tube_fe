@@ -1,14 +1,30 @@
-<ng-container *ngIf="showVideo; else videoPreview">
-  <video #swipeVideo class="swipe" controls loop [muted]="false">
-    <source [src]="formUrl(swipeVideoItem.videoUrlPath)" type="video/mp4" />
-    Your browser does not support the video tag.
-  </video>
-</ng-container>
+<div class="swipe__container">
+  <ng-container *ngIf="showVideo; else videoPreview">
+    <video #swipeVideo class="swipe" controls loop [muted]="false">
+      <source [src]="formUrl(swipeVideoItem.videoUrlPath)" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </ng-container>
 
-<ng-template #videoPreview>
-  <img
-    class="swipe"
-    [src]="formUrl(swipeVideoItem.thumbnailUrlPath)"
-    alt="video thumbnail"
-  />
-</ng-template>
+  <ng-template #videoPreview>
+    <img
+      class="swipe"
+      [src]="formUrl(swipeVideoItem.thumbnailUrlPath)"
+      alt="video thumbnail"
+    />
+  </ng-template>
+  <div class="statistic">
+    <p class="statistic__info-like">
+      <fa-icon class="statistic__icon-like fa-xl" [icon]="faLike"></fa-icon>
+      <span class="text__caption text-white">{{ getLikes() }}</span>
+    </p>
+    <p class="statistic__info">
+      <fa-icon class="statistic__icon fa-xl" [icon]="faViews"></fa-icon>
+      <span class="text__caption text-white">{{ getViews() }}</span>
+    </p>
+    <p class="statistic__info">
+      <fa-icon class="statistic__icon fa-xl" [icon]="faComments"></fa-icon>
+      <span class="text__caption text-white">0</span>
+    </p>
+  </div>
+</div>

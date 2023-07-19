@@ -1,16 +1,23 @@
 import {
-  AfterViewInit,
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
   ElementRef,
   Input,
   OnChanges,
+  OnDestroy,
   SimpleChanges,
   ViewChild,
 } from '@angular/core';
+import {
+  faComment,
+  faEye,
+  faThumbsUp,
+} from '@fortawesome/free-solid-svg-icons';
 import { ISwipeVideo } from 'src/app/features/video/interfaces';
 import { environment } from 'src/environments/environment';
+import { VideoService } from '../../service';
+import { Subject, takeUntil } from 'rxjs';
 
 @Component({
   selector: 'app-swipe-video-item',
@@ -18,32 +25,53 @@ import { environment } from 'src/environments/environment';
   styleUrls: ['./swipe-video-item.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class SwipeVideoItemComponent implements OnChanges, AfterViewInit {
+export class SwipeVideoItemComponent implements OnChanges, OnDestroy {
+  showVideo: boolean | undefined = false;
+
+  faLike = faThumbsUp;
+  faViews = faEye;
+  faComments = faComment;
+
+  boundTimeUpdateCallback = this.timeUpdateCallback.bind(this);
+
+  private destroySubject$ = new Subject();
+
   @Input() swipeVideoItem: ISwipeVideo;
 
   @Input() isPlaying: boolean | undefined;
 
-  showVideo: boolean | undefined = false;
-
   @ViewChild('swipeVideo', { static: false }) swipeVideo!: ElementRef;
 
-  constructor(private changeDetectorRef: ChangeDetectorRef) {}
+  constructor(
+    private changeDetectorRef: ChangeDetectorRef,
+    private videoService: VideoService,
+  ) {}
 
-  ngAfterViewInit(): void {
-    if (this.isPlaying) this.playVideo();
+  getLikes() {
+    return this.swipeVideoItem.statistic?.likes
+      ? this.swipeVideoItem.statistic.likes
+      : 0;
+  }
+
+  getViews() {
+    return this.swipeVideoItem.statistic?.views
+      ? this.swipeVideoItem.statistic.views
+      : 0;
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const isPlaying = changes['isPlaying'].currentValue;
+    if ('isPlaying' in changes) {
+      const isPlaying = changes['isPlaying'].currentValue;
 
-    isPlaying
-      ? this.updateVideoState(isPlaying)
-      : /**
-         *  We need setTimeout to delay showing video preview
-         */
-        setTimeout(() => {
-          this.updateVideoState(isPlaying);
-        }, 300);
+      isPlaying
+        ? this.updateVideoState(isPlaying)
+        : /**
+           *  We need setTimeout to delay showing video preview
+           */
+          setTimeout(() => {
+            this.updateVideoState(isPlaying);
+          }, 300);
+    }
   }
 
   private updateVideoState(isPlaying: boolean) {
@@ -57,9 +85,15 @@ export class SwipeVideoItemComponent implements OnChanges, AfterViewInit {
   }
 
   private playVideo() {
-    if (this.swipeVideo?.nativeElement) {
-      this.swipeVideo.nativeElement.volume = 0.2;
-      this.swipeVideo.nativeElement.play();
+    const nativeElement = this.swipeVideo?.nativeElement as HTMLMediaElement;
+
+    console.log(this.isPlaying);
+
+    if (nativeElement) {
+      nativeElement.volume = 0.2;
+      nativeElement.play();
+
+      this.listenSwipeVideoTimeUpdate();
     }
   }
 
@@ -67,12 +101,42 @@ export class SwipeVideoItemComponent implements OnChanges, AfterViewInit {
     const nativeElement = this.swipeVideo?.nativeElement as HTMLMediaElement;
 
     if (nativeElement) {
-      this.swipeVideo.nativeElement.pause();
-      this.swipeVideo.nativeElement.currentTime = 0;
+      nativeElement.pause();
+      nativeElement.currentTime = 0;
     }
   }
 
   public formUrl = (urlPath: string): string => {
     return `${environment.baseContentUrl}/${urlPath}`;
   };
+
+  listenSwipeVideoTimeUpdate() {
+    this.swipeVideo.nativeElement.addEventListener(
+      'timeupdate',
+      this.boundTimeUpdateCallback,
+    );
+  }
+
+  async timeUpdateCallback(event: Event) {
+    const totalDuration = this.swipeVideo?.nativeElement.duration;
+    const actualTime = (event.target as HTMLVideoElement).currentTime;
+    const halfwayPoint = totalDuration / 2;
+
+    if (actualTime >= halfwayPoint) {
+      this.videoService
+        .addVideoView(this.swipeVideoItem.videoId)
+        .pipe(takeUntil(this.destroySubject$))
+        .subscribe();
+
+      this.swipeVideo.nativeElement.removeEventListener(
+        'timeupdate',
+        this.boundTimeUpdateCallback,
+      );
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.destroySubject$.next(true);
+    this.destroySubject$.complete();
+  }
 }

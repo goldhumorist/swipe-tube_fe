@@ -36,6 +36,7 @@ export class VideoRecorderComponent implements OnDestroy {
     isStopRecordingAvailable: false,
     isCameraLoading$: new Subject<boolean>(),
   };
+
   maxVideoDurationText = MaxVideoDurationText;
   maxVideoDurationTimeout: ReturnType<typeof setTimeout>;
   minVideoDurationText = MinRecordingVideoDurationText;

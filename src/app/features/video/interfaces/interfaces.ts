@@ -12,6 +12,11 @@ export interface IVideoPagination {
   totalRows: number;
 }
 
+export interface ISwipeVideoStatistic {
+  views?: number;
+  likes?: number;
+}
+
 export interface IVideo {
   videoUrlPath: string;
   thumbnailUrlPath: string;
@@ -19,10 +24,12 @@ export interface IVideo {
 }
 
 export interface ISwipeVideo {
+  videoId: number;
   videoUrlPath: string;
   thumbnailUrlPath: string;
   description?: string;
   isPlaying?: boolean;
+  statistic: ISwipeVideoStatistic;
 }
 
 export interface IUserVideosResponse {
@@ -37,7 +44,7 @@ export interface ILoadUserVideosParams {
 
 export interface ISwipeVideosResponse {
   pagination: IVideoPagination;
-  videos: Array<IVideo>;
+  videos: Array<ISwipeVideo>;
 }
 
 export type ISwipeFormatedVideosResponse = Array<ISwipeVideo>;
