@@ -15,15 +15,29 @@
   </ng-template>
   <div class="statistic">
     <p class="statistic__info-like">
-      <fa-icon class="statistic__icon-like fa-xl" [icon]="faLike"></fa-icon>
+      <fa-icon
+        (click)="likeVideo()"
+        class="statistic__icon-like"
+        [ngClass]="{ 'statistic__icon-like--active': isLiked }"
+        [icon]="faLike"
+      ></fa-icon>
       <span class="text__caption text-white">{{ getLikes() }}</span>
     </p>
+    <p class="statistic__info-like">
+      <fa-icon
+        (click)="dislikeVideo()"
+        class="statistic__icon-like"
+        [ngClass]="{ 'statistic__icon-like--active': isDisliked }"
+        [icon]="faDislike"
+      ></fa-icon>
+      <span class="text__caption text-white">{{ getDislikes() }}</span>
+    </p>
     <p class="statistic__info">
-      <fa-icon class="statistic__icon fa-xl" [icon]="faViews"></fa-icon>
+      <fa-icon class="statistic__icon" [icon]="faViews"></fa-icon>
       <span class="text__caption text-white">{{ getViews() }}</span>
     </p>
     <p class="statistic__info">
-      <fa-icon class="statistic__icon fa-xl" [icon]="faComments"></fa-icon>
+      <fa-icon class="statistic__icon" [icon]="faComments"></fa-icon>
       <span class="text__caption text-white">0</span>
     </p>
   </div>

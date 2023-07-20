@@ -12,6 +12,7 @@ import {
 import {
   faComment,
   faEye,
+  faThumbsDown,
   faThumbsUp,
 } from '@fortawesome/free-solid-svg-icons';
 import { ISwipeVideo } from 'src/app/features/video/interfaces';
@@ -29,12 +30,19 @@ export class SwipeVideoItemComponent implements OnChanges, OnDestroy {
   showVideo: boolean | undefined = false;
 
   faLike = faThumbsUp;
+  faDislike = faThumbsDown;
   faViews = faEye;
   faComments = faComment;
 
   boundTimeUpdateCallback = this.timeUpdateCallback.bind(this);
 
   private destroySubject$ = new Subject();
+
+  @Input()
+  isLiked = false;
+
+  @Input()
+  isDisliked = false;
 
   @Input() swipeVideoItem: ISwipeVideo;
 
@@ -53,10 +61,24 @@ export class SwipeVideoItemComponent implements OnChanges, OnDestroy {
       : 0;
   }
 
+  getDislikes() {
+    return this.swipeVideoItem.statistic?.likes
+      ? this.swipeVideoItem.statistic.likes
+      : 0;
+  }
+
   getViews() {
     return this.swipeVideoItem.statistic?.views
       ? this.swipeVideoItem.statistic.views
       : 0;
+  }
+
+  likeVideo() {
+    console.log('liked');
+  }
+
+  dislikeVideo() {
+    console.log('disliked');
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -70,7 +92,7 @@ export class SwipeVideoItemComponent implements OnChanges, OnDestroy {
            */
           setTimeout(() => {
             this.updateVideoState(isPlaying);
-          }, 300);
+          }, 500);
     }
   }
 
@@ -86,8 +108,6 @@ export class SwipeVideoItemComponent implements OnChanges, OnDestroy {
 
   private playVideo() {
     const nativeElement = this.swipeVideo?.nativeElement as HTMLMediaElement;
-
-    console.log(this.isPlaying);
 
     if (nativeElement) {
       nativeElement.volume = 0.2;

@@ -11,7 +11,7 @@
 }
 
 .navigation {
-  @apply shadow-xl fixed w-screen bottom-0 top-10 opacity-0 invisible -translate-x-10 transition-all bg-white
+  @apply shadow-xl fixed w-screen shadow-gray-800 bottom-0 top-10 opacity-0 invisible -translate-x-10 transition-all bg-white
   sm:w-fit;
 
   &__list {

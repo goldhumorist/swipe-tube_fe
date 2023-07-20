@@ -1,5 +1,7 @@
-.video-layout-wrapper {
-  @apply flex items-start justify-center h-[100vh] w-[100vw]
-    bg-[url('../../../assets/bg/ellipse_user_mobile_bg.png')]
-     md:bg-[url('../../../assets/bg/ellipse_user_bg.png')] bg-no-repeat bg-top overflow-x-hidden md:overflow-hidden px-3 md:px-0;
+.video-layout {
+  &__wrapper {
+    @apply flex items-start justify-center h-[100vh] w-[100vw]
+    bg-[url('../../../assets/bg/main/circles_main_mobile_bg.png')]
+     md:bg-[url('../../../assets/bg/main/circles_main_bg.png')] bg-no-repeat bg-top overflow-x-hidden md:overflow-hidden px-3 md:px-0;
+  }
 }
