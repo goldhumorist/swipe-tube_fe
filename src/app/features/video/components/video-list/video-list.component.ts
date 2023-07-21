@@ -1,11 +1,18 @@
 import { IVideo } from '../../interfaces/interfaces';
-import { Component, Input, EventEmitter, Output } from '@angular/core';
+import {
+  Component,
+  Input,
+  EventEmitter,
+  Output,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-video-list',
   templateUrl: './video-list.component.html',
   styleUrls: ['./video-list.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VideoListComponent {
   selectedVideo: IVideo;
