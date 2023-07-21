@@ -1,4 +1,10 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, Output } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  Input,
+  Output,
+} from '@angular/core';
 import { IVideo } from 'src/app/features/video/interfaces';
 import { environment } from 'src/environments/environment';
 import { faArchive, faHeart } from '@fortawesome/free-solid-svg-icons';

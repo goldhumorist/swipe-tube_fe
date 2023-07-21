@@ -4,6 +4,7 @@ import {
   ILoadUserVideosParams,
   ISwipeFormatedVideosResponse,
   ISwipeVideosParams,
+  IUpdateVideoReactionData,
   IUploadVideo,
 } from '../interfaces';
 import { Store, select } from '@ngrx/store';
@@ -65,5 +66,9 @@ export class VideoService {
 
   addVideoView(videoId: number) {
     return this.videoApiService.addVideoView(videoId);
+  }
+
+  updateVideoReaction(data: IUpdateVideoReactionData) {
+    return this.videoApiService.updateVideoReaction(data);
   }
 }

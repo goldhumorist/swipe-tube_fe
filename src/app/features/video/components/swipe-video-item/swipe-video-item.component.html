@@ -16,25 +16,35 @@
   <div class="statistic">
     <p class="statistic__info-like">
       <fa-icon
-        (click)="likeVideo()"
+        (click)="updateVideoReaction(videoReactions.like)"
         class="statistic__icon-like"
-        [ngClass]="{ 'statistic__icon-like--active': isLiked }"
+        [ngClass]="{
+          'statistic__icon-like--active': videoMetaData.isLiked
+        }"
         [icon]="faLike"
       ></fa-icon>
-      <span class="text__caption text-white">{{ getLikes() }}</span>
+      <span class="text__caption text-white">{{
+        videoStatistic.likes || 0
+      }}</span>
     </p>
     <p class="statistic__info-like">
       <fa-icon
-        (click)="dislikeVideo()"
+        (click)="updateVideoReaction(videoReactions.dislike)"
         class="statistic__icon-like"
-        [ngClass]="{ 'statistic__icon-like--active': isDisliked }"
+        [ngClass]="{
+          'statistic__icon-like--active': videoMetaData.isDisliked
+        }"
         [icon]="faDislike"
       ></fa-icon>
-      <span class="text__caption text-white">{{ getDislikes() }}</span>
+      <span class="text__caption text-white">{{
+        videoStatistic.dislikes || 0
+      }}</span>
     </p>
     <p class="statistic__info">
       <fa-icon class="statistic__icon" [icon]="faViews"></fa-icon>
-      <span class="text__caption text-white">{{ getViews() }}</span>
+      <span class="text__caption text-white">{{
+        videoStatistic.views || 0
+      }}</span>
     </p>
     <p class="statistic__info">
       <fa-icon class="statistic__icon" [icon]="faComments"></fa-icon>

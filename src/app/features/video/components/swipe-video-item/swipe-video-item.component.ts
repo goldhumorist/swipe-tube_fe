@@ -19,6 +19,7 @@ import { ISwipeVideo } from 'src/app/features/video/interfaces';
 import { environment } from 'src/environments/environment';
 import { VideoService } from '../../service';
 import { Subject, takeUntil } from 'rxjs';
+import { VideoReactionEnum } from '../../enums';
 
 @Component({
   selector: 'app-swipe-video-item',
@@ -35,51 +36,26 @@ export class SwipeVideoItemComponent implements OnChanges, OnDestroy {
   faComments = faComment;
 
   boundTimeUpdateCallback = this.timeUpdateCallback.bind(this);
-
-  private destroySubject$ = new Subject();
-
-  @Input()
-  isLiked = false;
-
-  @Input()
-  isDisliked = false;
-
   @Input() swipeVideoItem: ISwipeVideo;
-
   @Input() isPlaying: boolean | undefined;
 
   @ViewChild('swipeVideo', { static: false }) swipeVideo!: ElementRef;
+
+  private destroySubject$ = new Subject();
+  public videoReactions = VideoReactionEnum;
+
+  get videoStatistic() {
+    return this.swipeVideoItem.statistic;
+  }
+
+  get videoMetaData() {
+    return this.swipeVideoItem.metaData;
+  }
 
   constructor(
     private changeDetectorRef: ChangeDetectorRef,
     private videoService: VideoService,
   ) {}
-
-  getLikes() {
-    return this.swipeVideoItem.statistic?.likes
-      ? this.swipeVideoItem.statistic.likes
-      : 0;
-  }
-
-  getDislikes() {
-    return this.swipeVideoItem.statistic?.likes
-      ? this.swipeVideoItem.statistic.likes
-      : 0;
-  }
-
-  getViews() {
-    return this.swipeVideoItem.statistic?.views
-      ? this.swipeVideoItem.statistic.views
-      : 0;
-  }
-
-  likeVideo() {
-    console.log('liked');
-  }
-
-  dislikeVideo() {
-    console.log('disliked');
-  }
 
   ngOnChanges(changes: SimpleChanges): void {
     if ('isPlaying' in changes) {
@@ -95,6 +71,29 @@ export class SwipeVideoItemComponent implements OnChanges, OnDestroy {
           }, 500);
     }
   }
+
+  updateVideoReaction(reaction: VideoReactionEnum) {
+    this.videoService
+      .updateVideoReaction({
+        videoId: this.swipeVideoItem.videoId,
+        reaction,
+      })
+      .subscribe({
+        next: result => {
+          this.swipeVideoItem.statistic.likes = result.statistic.likes;
+          this.swipeVideoItem.statistic.dislikes = result.statistic.dislikes;
+
+          this.swipeVideoItem.metaData.isDisliked = result.metaData.isDisliked;
+          this.swipeVideoItem.metaData.isLiked = result.metaData.isLiked;
+
+          this.changeDetectorRef.detectChanges();
+        },
+      });
+  }
+
+  public formUrl = (urlPath: string): string => {
+    return `${environment.baseContentUrl}/${urlPath}`;
+  };
 
   private updateVideoState(isPlaying: boolean) {
     this.showVideo = isPlaying;
@@ -126,23 +125,19 @@ export class SwipeVideoItemComponent implements OnChanges, OnDestroy {
     }
   }
 
-  public formUrl = (urlPath: string): string => {
-    return `${environment.baseContentUrl}/${urlPath}`;
-  };
-
-  listenSwipeVideoTimeUpdate() {
+  private listenSwipeVideoTimeUpdate() {
     this.swipeVideo.nativeElement.addEventListener(
       'timeupdate',
       this.boundTimeUpdateCallback,
     );
   }
 
-  async timeUpdateCallback(event: Event) {
+  private async timeUpdateCallback(event: Event) {
     const totalDuration = this.swipeVideo?.nativeElement.duration;
     const actualTime = (event.target as HTMLVideoElement).currentTime;
     const halfwayPoint = totalDuration / 2;
 
-    if (actualTime >= halfwayPoint) {
+    if (actualTime >= halfwayPoint && !this.swipeVideoItem.metaData.isViewed) {
       this.videoService
         .addVideoView(this.swipeVideoItem.videoId)
         .pipe(takeUntil(this.destroySubject$))

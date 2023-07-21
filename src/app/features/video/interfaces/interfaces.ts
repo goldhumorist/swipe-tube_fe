@@ -1,3 +1,5 @@
+import { VideoReactionEnum } from '../enums';
+
 export type IUploadVideo = FormData;
 
 export interface IUploadVideoResponse {
@@ -15,6 +17,13 @@ export interface IVideoPagination {
 export interface ISwipeVideoStatistic {
   views?: number;
   likes?: number;
+  dislikes?: number;
+}
+
+export interface ISwipeVideoMeta {
+  isViewed: boolean;
+  isLiked: boolean;
+  isDisliked: boolean;
 }
 
 export interface IVideo {
@@ -30,6 +39,7 @@ export interface ISwipeVideo {
   description?: string;
   isPlaying?: boolean;
   statistic: ISwipeVideoStatistic;
+  metaData: ISwipeVideoMeta;
 }
 
 export interface IUserVideosResponse {
@@ -53,4 +63,22 @@ export interface ISwipeVideosParams {
   page: number;
   mainLimit: number;
   itemLimit: number;
+}
+
+export interface IUpdateVideoReactionData {
+  videoId: number;
+  reaction: VideoReactionEnum;
+}
+
+export interface IUpdateVideoReactionResponse {
+  userId: number;
+  videoId: number;
+  statistic: {
+    likes: number;
+    dislikes: number;
+  };
+  metaData: {
+    isLiked: boolean;
+    isDisliked: boolean;
+  };
 }

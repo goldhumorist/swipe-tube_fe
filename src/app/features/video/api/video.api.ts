@@ -5,6 +5,8 @@ import {
   ILoadUserVideosParams,
   ISwipeVideosParams,
   ISwipeVideosResponse,
+  IUpdateVideoReactionData,
+  IUpdateVideoReactionResponse,
   IUploadVideo,
   IUploadVideoResponse,
   IUserVideosResponse,
@@ -68,6 +70,13 @@ export class VideoApi {
       {
         params: queryParams,
       },
+    );
+  }
+
+  updateVideoReaction(data: IUpdateVideoReactionData) {
+    return this.apiService.post<IUpdateVideoReactionResponse>(
+      `${this.basePath}/update-video-reaction`,
+      data,
     );
   }
 }
