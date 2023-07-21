@@ -1,6 +1,34 @@
 .swipe {
-  @apply block w-[80vw] md:w-full max-w-[446px] h-[84vh] bg-black bg-opacity-70 backdrop-blur-md;
+  @apply block max-w-[300px] md:max-w-[382px] z-[1] h-[87vh] md:h-[72vh] bg-black bg-opacity-70 backdrop-blur-md;
+  &__container {
+    @apply flex justify-between;
+  }
 }
+
+.statistic {
+  @apply flex flex-col z-[0] bg-black bg-opacity-70 p-2 py-4 md:p-4 shadow-inner shadow-black;
+  & > * {
+    @apply mb-4;
+  }
+  &__icon {
+    @apply flex text-white justify-center items-center w-12 h-8 rounded-full text-lg md:text-2xl;
+  }
+  &__icon-like {
+    @apply flex justify-center text-lg md:text-2xl text-white items-center w-12 h-12 rounded-full
+     bg-white bg-opacity-20 cursor-pointer hover:scale-110 hover:text-black hover:bg-opacity-100 transition-transform;
+  }
+  &__icon-like--active {
+    @apply bg-opacity-100 text-black;
+  }
+  &__info {
+    @apply flex flex-col items-center;
+  }
+
+  &__info-like {
+    @apply flex flex-col items-center gap-2;
+  }
+}
+
 :host {
-  @apply mb-8 rounded-xl overflow-clip;
+  @apply mb-8 rounded-xl shadow-2xl shadow-black overflow-hidden;
 }

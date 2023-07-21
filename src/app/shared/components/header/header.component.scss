@@ -1,3 +1,6 @@
 .header {
-  @apply fixed bg-gradient-primary w-screen py-2 z-10;
+  @apply fixed bg-green-700 bg-opacity-75  w-screen py-2 z-10;
+  &__logo {
+    @apply bg-[url('../../../../assets/images/Oval.png')] w-[32px] h-[32px] absolute top-1 right-6 bg-no-repeat;
+  }
 }

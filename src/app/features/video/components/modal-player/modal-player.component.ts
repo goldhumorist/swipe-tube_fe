@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy,
   Component,
   EventEmitter,
   HostListener,
@@ -13,6 +14,7 @@ import { faClose } from '@fortawesome/free-solid-svg-icons';
   selector: 'app-modal-player',
   templateUrl: './modal-player.component.html',
   styleUrls: ['./modal-player.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ModalPlayerComponent {
   @Input() videoItem: IVideo;

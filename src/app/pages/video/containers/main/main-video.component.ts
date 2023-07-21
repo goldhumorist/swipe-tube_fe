@@ -112,22 +112,28 @@ export class MainVideoComponent implements OnInit, OnDestroy {
     const isDirectionUp = direction === 'up';
 
     const prevVideoIndex = this.currentVideoIndex;
+
     const nextVideoIndex = isDirectionUp
       ? this.currentVideoIndex + 1
       : this.currentVideoIndex - 1;
 
-    this.currentVideoIndex = nextVideoIndex;
+    const isStartOrEnd =
+      nextVideoIndex !== -1 && nextVideoIndex !== this.swipeVideos.length;
 
-    const nextElement =
-      this.swipeVideosListElement.nativeElement.children[nextVideoIndex];
+    if (isStartOrEnd) {
+      this.currentVideoIndex = nextVideoIndex;
 
-    this.scrollToElement(nextElement);
+      const nextElement =
+        this.swipeVideosListElement.nativeElement.children[nextVideoIndex];
 
-    this.swipeVideos[nextVideoIndex].isPlaying = true;
+      this.scrollToElement(nextElement);
 
-    this.swipeVideos[prevVideoIndex].isPlaying = false;
+      this.swipeVideos[nextVideoIndex].isPlaying = true;
 
-    this.cd.detectChanges();
+      this.swipeVideos[prevVideoIndex].isPlaying = false;
+
+      this.cd.detectChanges();
+    }
   }
 
   private scrollToElement(nextElement: Element) {

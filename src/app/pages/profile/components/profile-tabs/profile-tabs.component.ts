@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { faArchive, faHeart } from '@fortawesome/free-solid-svg-icons';
 import {
   PATH_TO_PROFILE_LIKED_VIDEOS,
@@ -9,6 +9,7 @@ import {
   selector: 'app-profile-tabs',
   templateUrl: './profile-tabs.component.html',
   styleUrls: ['./profile-tabs.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ProfileTabsComponent {
   public faArchive = faArchive;
