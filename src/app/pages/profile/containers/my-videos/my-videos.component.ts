@@ -7,7 +7,7 @@ import {
 } from '@angular/core';
 import { Subject, takeUntil } from 'rxjs';
 import { VideoService } from 'src/app/features/video';
-import { IVideo } from 'src/app/features/video/interfaces';
+import { IVideoWithStatistic } from 'src/app/features/video/interfaces';
 import { IntersectionStatus } from 'src/app/shared/directives/service/from-intersection-observer';
 
 @Component({
@@ -17,7 +17,7 @@ import { IntersectionStatus } from 'src/app/shared/directives/service/from-inter
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MyVideosComponent implements OnInit, OnDestroy {
-  public videoList: IVideo[];
+  public videoList: IVideoWithStatistic[];
 
   public isLoading$ = this.videosService.isLoadingSelector$;
   private destroySubject$ = new Subject();

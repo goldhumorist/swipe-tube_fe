@@ -18,6 +18,8 @@
     <div class="recorder__warning-container">
       <fa-icon
         (click)="toggleWarning()"
+        (mouseenter)="toggleWarning()"
+        (mouseleave)="toggleWarning()"
         class="recorder__warning-icon"
         [icon]="faInfo"
       ></fa-icon>

@@ -1,4 +1,4 @@
-import { IVideo } from '../../interfaces/interfaces';
+import { IVideoWithStatistic } from '../../interfaces/interfaces';
 import {
   Component,
   Input,
@@ -15,11 +15,11 @@ import { Observable } from 'rxjs';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VideoListComponent {
-  selectedVideo: IVideo;
+  selectedVideo: IVideoWithStatistic;
 
   isVideoSelected: boolean;
 
-  @Input() videoList: IVideo[];
+  @Input() videoList: IVideoWithStatistic[];
   @Input() isLoading$: Observable<boolean>;
 
   @Output() loadNewVideosEmitter = new EventEmitter<string>();
@@ -32,7 +32,7 @@ export class VideoListComponent {
     return index === this.videoList?.length - 1;
   }
 
-  openVideo(video: IVideo) {
+  openVideo(video: IVideoWithStatistic) {
     this.selectedVideo = video;
     this.isVideoSelected = true;
   }
@@ -42,6 +42,7 @@ export class VideoListComponent {
       videoUrlPath: '',
       thumbnailUrlPath: '',
       description: '',
+      statistic: {},
     };
     this.isVideoSelected = false;
   }

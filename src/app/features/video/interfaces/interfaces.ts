@@ -32,6 +32,16 @@ export interface IVideo {
   description?: string;
 }
 
+export interface IUserVideoStatistic {
+  views?: number;
+  likes?: number;
+  dislikes?: number;
+}
+
+export type IVideoWithStatistic = IVideo & {
+  statistic: IUserVideoStatistic;
+};
+
 export interface ISwipeVideo {
   videoId: number;
   videoUrlPath: string;
@@ -44,12 +54,22 @@ export interface ISwipeVideo {
 
 export interface IUserVideosResponse {
   pagination: IVideoPagination;
-  videos: Array<IVideo>;
+  videos: Array<IVideoWithStatistic>;
 }
 
 export interface ILoadUserVideosParams {
   page: number;
   limit: number;
+}
+
+export interface ILoadLikedVideosParams {
+  page: number;
+  limit: number;
+}
+
+export interface ILikedVideosResponse {
+  pagination: IVideoPagination;
+  videos: Array<IVideoWithStatistic>;
 }
 
 export interface ISwipeVideosResponse {

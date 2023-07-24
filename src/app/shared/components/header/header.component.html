@@ -1,4 +1,12 @@
+<!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
+<!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <div class="header">
   <app-navigation-menu></app-navigation-menu>
-  <div class="header__logo"></div>
+  <div class="header__avatar-container" (click)="profileImageClick()">
+    <img
+      class="header__avatar"
+      [src]="profileImageUrl$ | async"
+      alt="profile photo"
+    />
+  </div>
 </div>
