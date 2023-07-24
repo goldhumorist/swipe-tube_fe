@@ -1,16 +1,22 @@
 <!-- eslint-disable @angular-eslint/template/click-events-have-key-events -->
 <!-- eslint-disable @angular-eslint/template/interactive-supports-focus -->
 <img
-  [src]="formThumbnailUrl(videoItem.thumbnailUrlPath)"
+  [src]="thumbnailUrl"
   class="video__image"
   (click)="onVideoClick(videoItem)"
   alt="video image"
 />
 <div class="video__info" (click)="onVideoClick(videoItem)">
   <p class="info text__small">
-    <fa-icon class="info__icon" [icon]="faHeart"></fa-icon>999
+    <fa-icon class="info__icon" [icon]="faEye"></fa-icon
+    >{{ videoStatistic.views }}
   </p>
   <p class="info text__small">
-    <fa-icon class="info__icon" [icon]="faHeart"></fa-icon>999
+    <fa-icon class="info__icon" [icon]="faThumbsUp"></fa-icon
+    >{{ videoStatistic.likes }}
+  </p>
+  <p class="info text__small">
+    <fa-icon class="info__icon" [icon]="faThumbsDown"></fa-icon
+    >{{ videoStatistic.dislikes }}
   </p>
 </div>

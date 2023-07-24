@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { ILoginData, ISignupData } from '../interfaces';
 import { Store, select } from '@ngrx/store';
-import { getIsLoading, getUserData } from '../store/user.selector';
+import {
+  getAvatarUrlPath,
+  getIsLoading,
+  getUserData,
+} from '../store/user.selector';
 import { login, logout, signup } from '../store/user.actions';
 
 @Injectable({
@@ -12,6 +16,7 @@ export class UserService {
 
   isLoadingSelector$ = this.store.pipe(select(getIsLoading));
   userDataSelector$ = this.store.pipe(select(getUserData));
+  userAvatarUrlPath$ = this.store.pipe(select(getAvatarUrlPath));
 
   signup(data: ISignupData): void {
     this.store.dispatch(signup(data));

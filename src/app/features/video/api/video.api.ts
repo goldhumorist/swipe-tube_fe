@@ -10,6 +10,8 @@ import {
   IUploadVideo,
   IUploadVideoResponse,
   IUserVideosResponse,
+  ILoadLikedVideosParams,
+  ILikedVideosResponse,
 } from '../interfaces';
 import { Observable } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
@@ -77,6 +79,24 @@ export class VideoApi {
     return this.apiService.post<IUpdateVideoReactionResponse>(
       `${this.basePath}/update-video-reaction`,
       data,
+    );
+  }
+
+  loadLikedVideos(
+    params: ILoadLikedVideosParams,
+  ): Observable<ILikedVideosResponse> {
+    const { page, limit } = params;
+
+    const queryParams = new HttpParams().appendAll({
+      page,
+      limit,
+    });
+
+    return this.apiService.get<ILikedVideosResponse>(
+      `${this.basePath}/liked-videos`,
+      {
+        params: queryParams,
+      },
     );
   }
 }

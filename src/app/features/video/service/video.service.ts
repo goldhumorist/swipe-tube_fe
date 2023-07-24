@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { VideoApi } from '../api/video.api';
 import {
+  ILoadLikedVideosParams,
   ILoadUserVideosParams,
   ISwipeFormatedVideosResponse,
   ISwipeVideosParams,
@@ -70,5 +71,11 @@ export class VideoService {
 
   updateVideoReaction(data: IUpdateVideoReactionData) {
     return this.videoApiService.updateVideoReaction(data);
+  }
+
+  loadLikedVideos(params: ILoadLikedVideosParams) {
+    return this.videoApiService
+      .loadLikedVideos(params)
+      .pipe(map(response => response.videos));
   }
 }

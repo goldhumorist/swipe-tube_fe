@@ -1,5 +1,5 @@
 import { VideoProfilePagination } from '../enums';
-import { IVideo } from '../interfaces';
+import { IVideoWithStatistic } from '../interfaces';
 import {
   initUserVideos,
   initUserVideosFailed,
@@ -17,7 +17,7 @@ import { createReducer, on } from '@ngrx/store';
 
 export interface IVideoState {
   videoData: {
-    userVideos: IVideo[];
+    userVideos: Array<IVideoWithStatistic>;
   };
   pagination: {
     page: number;

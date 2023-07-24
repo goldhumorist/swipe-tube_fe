@@ -11,6 +11,11 @@ export const getIsLoading = createSelector(
 
 export const getUserData = createSelector(getFeature, state => state.userData);
 
+export const getAvatarUrlPath = createSelector(
+  getUserData,
+  state => state.avatarUrlPath,
+);
+
 export const getUsername = createSelector(
   getUserData,
   state => state?.username,

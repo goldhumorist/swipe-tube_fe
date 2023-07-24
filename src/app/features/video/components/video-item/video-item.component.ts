@@ -5,9 +5,13 @@ import {
   Input,
   Output,
 } from '@angular/core';
-import { IVideo } from 'src/app/features/video/interfaces';
+import { IVideoWithStatistic } from 'src/app/features/video/interfaces';
 import { environment } from 'src/environments/environment';
-import { faArchive, faHeart } from '@fortawesome/free-solid-svg-icons';
+import {
+  faThumbsUp,
+  faThumbsDown,
+  faEye,
+} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-video-item',
@@ -16,17 +20,23 @@ import { faArchive, faHeart } from '@fortawesome/free-solid-svg-icons';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class VideoItemComponent {
-  @Input() videoItem: IVideo;
+  @Input() videoItem: IVideoWithStatistic;
 
-  @Output() selectVideoEmitter = new EventEmitter<IVideo>();
+  @Output() selectVideoEmitter = new EventEmitter<IVideoWithStatistic>();
 
-  public faArchive = faArchive;
-  public faHeart = faHeart;
+  public faThumbsUp = faThumbsUp;
+  public faThumbsDown = faThumbsDown;
+  public faEye = faEye;
 
-  formThumbnailUrl = (videoThumbnailKey: string): string =>
-    `${environment.baseContentUrl}/${videoThumbnailKey}`;
+  get thumbnailUrl() {
+    return `${environment.baseContentUrl}/${this.videoItem.thumbnailUrlPath}`;
+  }
 
-  onVideoClick(videoItem: IVideo) {
+  get videoStatistic() {
+    return this.videoItem.statistic;
+  }
+
+  onVideoClick(videoItem: IVideoWithStatistic) {
     this.selectVideoEmitter.emit(videoItem);
   }
 }
