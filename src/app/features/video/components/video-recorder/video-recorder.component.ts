@@ -92,14 +92,12 @@ export class VideoRecorderComponent implements OnDestroy {
       const videoStream = this.videoElement.nativeElement.srcObject;
       this.mediaRecorder = new MediaRecorder(videoStream);
 
-      this.mediaRecorder.addEventListener(
-        'dataavailable',
-        this.recordingStartCallback.bind(this),
+      this.mediaRecorder.addEventListener('dataavailable', event =>
+        this.recordingStartCallback(event),
       );
 
-      this.mediaRecorder.addEventListener(
-        'stop',
-        this.recordingStopCallback.bind(this),
+      this.mediaRecorder.addEventListener('stop', () =>
+        this.recordingStopCallback(),
       );
 
       this.mediaRecorder.start();
@@ -131,12 +129,12 @@ export class VideoRecorderComponent implements OnDestroy {
 
       this.mediaRecorder.removeEventListener(
         'dataavailable',
-        this.recordingStartCallback.bind(this),
+        this.recordingStartCallback,
       );
 
       this.mediaRecorder.removeEventListener(
         'stop',
-        this.recordingStopCallback.bind(this),
+        this.recordingStopCallback,
       );
 
       this.recordingParams.isStopRecordingAvailable = false;
